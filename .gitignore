@@ -1,0 +1,12 @@
+# General
+*.log
+*.report.xml
+/.vscode
+
+# Specific
+/coverage
+/dist
+/node_modules
+.cache-loader
+.env
+.eslintcache

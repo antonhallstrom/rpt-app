@@ -1,0 +1,47 @@
+---
+plugins:
+  - "dependencies"
+  - "import"
+  - "react"
+  - "jest"
+
+extends:
+ - "eslint:recommended"
+ - "plugin:jest/recommended"
+ - "plugin:import/recommended"
+ - "plugin:import/react"
+ - "plugin:react/recommended"
+
+env:
+  es6: true
+  node: true
+  browser: true
+
+parser: babel-eslint
+
+ecmaFeatures:
+  modules: true
+  jsx: true
+
+parserOptions:
+  sourceType: module
+
+globals:
+  Before: true
+  Scenario: true
+  Feature: true
+  actor: true
+  within: true
+
+rules:
+  curly: warn
+  no-implicit-coercion: warn
+  no-useless-constructor: warn
+  prefer-const: warn
+  dependencies/case-sensitive: error
+  dependencies/no-cycles: error
+  import/no-named-as-default: 0
+  import/unambiguous: off
+  react/jsx-boolean-value: error
+  react/prefer-stateless-function: warn
+
