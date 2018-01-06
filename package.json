@@ -14,6 +14,7 @@
     "ramda": "^0.25.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-redux": "^5.0.6",
     "styled-components": "^2.3.2",
     "styled-reset": "^0.1.3"
   },
