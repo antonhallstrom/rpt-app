@@ -30,8 +30,7 @@
           }
         }],
         "react"
-      ],
-      "plugins": ["jest"]
+      ]
     }
   }
 }
