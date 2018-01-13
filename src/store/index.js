@@ -1,3 +1,4 @@
+// root reducer
 import { combineReducers, createStore } from 'redux'
 
 function createReducers() {
