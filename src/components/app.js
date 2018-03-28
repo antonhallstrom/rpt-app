@@ -1,16 +1,17 @@
 import React from 'react'
-import { injectGlobal } from 'styled-components'
 import reset from 'styled-reset'
+import { injectGlobal } from 'styled-components'
 
-const baseStyles = () => injectGlobal`
+
+injectGlobal`
   ${reset};
 `
 
 function App() {
-  baseStyles()
-
   return (
-    <h1>Hello World!</h1>
+    <div>
+      <h1>Hello World!</h1>
+    </div>
   )
 }
 
