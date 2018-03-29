@@ -1,20 +1,13 @@
 import React from 'react'
 import reset from 'styled-reset'
-import { ThemeProvider, injectGlobal } from 'styled-components'
-import baseTheme from './theme'
-
-import SignUp from './sign-up/sign-up'
+import { injectGlobal } from 'styled-components'
 
 injectGlobal`
   ${reset};
 `
 
 function App() {
-  return (
-    <ThemeProvider theme={baseTheme}>
-
-    </ThemeProvider>
-  )
+  return <div>l</div>
 }
 
 export default App
