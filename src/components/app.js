@@ -1,7 +1,9 @@
 import React from 'react'
 import reset from 'styled-reset'
-import { injectGlobal } from 'styled-components'
+import { ThemeProvider, injectGlobal } from 'styled-components'
+import baseTheme from './theme'
 
+import SignUp from './sign-up/sign-up'
 
 injectGlobal`
   ${reset};
@@ -9,9 +11,9 @@ injectGlobal`
 
 function App() {
   return (
-    <div>
-      <h1>Hello World!</h1>
-    </div>
+    <ThemeProvider theme={baseTheme}>
+
+    </ThemeProvider>
   )
 }
 
