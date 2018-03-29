@@ -10,13 +10,13 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 216px;
+  margin-top: 210px;
 `
 
 const Title = styled.div`
   font-family: 'Bungee Shade', cursive;
   font-size: 42px;
-  color: dodgerblue;
+  color: #323330;
 `
 
 function LandingPage() {
