@@ -12,7 +12,9 @@ const Button = styled.button`
   font-weight: 700;
 
   &:hover {
-    background-color: white;
+    background-color: dodgerblue;
+    color: white;
+    border:
   }
 `
 

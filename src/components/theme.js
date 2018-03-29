@@ -10,5 +10,6 @@ export default {
   colors: {
     black: '#0D0E11',
     white: '#FFFFFF',
+    brown: '#323330',
   }
 }

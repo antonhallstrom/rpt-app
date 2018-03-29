@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { Constraint, PageWrapper } from '../common/grid'
 import Button from '../common/button'
 import Space from '../common/space'
+import Icon from '../common/icon'
 
 const Wrapper = styled.div`
   display: flex;
@@ -16,7 +17,11 @@ const Wrapper = styled.div`
 const Title = styled.div`
   font-family: 'Bungee Shade', cursive;
   font-size: 42px;
-  color: #323330;
+  color: ${props => props.theme.colors.brown};
+`
+
+const Logo = styled(Icon)`
+
 `
 
 function LandingPage() {
@@ -25,7 +30,7 @@ function LandingPage() {
       <PageWrapper>
         <Wrapper>
           <Link to="/sign-up">
-            <Title>Reverse Pyramid Training Log</Title>
+            <Title>Reverse P<Logo name="rpt-logo"/>ramid Training Log</Title>
             <Space top={1}>
             <Button>Sign up</Button>
             </Space>

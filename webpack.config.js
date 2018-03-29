@@ -61,9 +61,9 @@ module.exports = {
         loader: 'svg-sprite-loader',
       },
       {
-        test: /\.(png|svg|jpg|gif)$/,
+        test: /(\.ttf|\.eot|fontawesome-webfont\.svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         loader: 'file-loader',
-      }
+      },
     ],
   },
   plugins: [
