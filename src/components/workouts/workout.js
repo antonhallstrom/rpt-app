@@ -3,7 +3,7 @@ import { auth } from '../../config/firebase'
 import styled from 'styled-components'
 import { Constraint, PageWrapper } from '../common/grid'
 import { Link } from 'react-router-dom'
-
+import Spinner from '../spinner'
 const Item = styled(Link)`
   display: block;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -31,7 +31,7 @@ class Workout extends React.Component {
 
   render() {
     if (!this.state.authenticated) {
-      return <div>Waiting</div>
+      return <Spinner/>
     }
 
     return (

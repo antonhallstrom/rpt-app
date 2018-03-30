@@ -12,8 +12,8 @@ const Button = styled.button`
   font-weight: 700;
 
   &:hover {
-    background-color: dodgerblue;
-    color: ${props => props.theme.colors.white};
+    background-color: mediumspringgreen;
+    color: rgba(0, 0, 0, 0.33);
   }
 `
 
