@@ -21,24 +21,39 @@ const Title = styled.div`
 `
 
 const Logo = styled(Icon)`
-
+  &.shift {
+    color: dodgerblue;
+  }
 `
 
-function LandingPage() {
-  return (
-    <Constraint width="1200" centered>
-      <PageWrapper>
-        <Wrapper>
-          <Link to="/sign-up">
-            <Title>Reverse P<Logo name="rpt-logo"/>ramid Training Log</Title>
-            <Space top={1}>
-            <Button>Sign up</Button>
-            </Space>
-          </Link>
-        </Wrapper>
-      </PageWrapper>
-    </Constraint>
-  )
+class LandingPage extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = { isHover: false }
+    this.handleHover = this.handleHover.bind(this)
+  }
+
+  handleHover() {
+    this.setState({ isHover: !this.state.isHover })
+  }
+
+  render() {
+    const shift = this.state.isHover ? 'shift' : ''
+    return (
+      <Constraint width="1200" centered>
+        <PageWrapper>
+          <Wrapper>
+            <Link to="/sign-up">
+              <Title>Reverse P<Logo className={shift} name="rpt-logo"/>ramid Training Log</Title>
+              <Space top={1}>
+              <Button onMouseEnter={this.handleHover} onMouseLeave={this.handleHover}>Sign up</Button>
+              </Space>
+            </Link>
+          </Wrapper>
+        </PageWrapper>
+      </Constraint>
+    )
+  }
 }
 
 export default LandingPage
