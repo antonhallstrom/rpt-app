@@ -2,7 +2,7 @@ import React from 'react'
 import reset from 'styled-reset'
 import { injectGlobal } from 'styled-components'
 import { auth } from '../config/firebase'
-import { Redirect } from 'react-router'
+
 injectGlobal`
   ${reset};
 
@@ -15,8 +15,19 @@ injectGlobal`
 `
 
 class AppContainer extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = { authenticated: null }
+  }
+
+  componentDidMount() {
+    auth.onAuthStateChanged(auth => {
+      this.setState({ authenticated: auth });
+    })
+  }
+
   render() {
-    return <div>dadas</div>
+      return null
   }
 }
 
