@@ -1,9 +1,15 @@
 import React from 'react'
+import styled from 'styled-components'
+
+const Input = styled.input`
+
+`
 
 function SignUpContainer() {
   return (
     <div>
-      Sign up form
+      <Input placeholder="Username"/>
+      <Input placeholder="Password"/>
     </div>
   )
 }

@@ -1,10 +1,11 @@
 import React from 'react'
-import { Link } from "react-router-dom";
 import styled from 'styled-components'
 import { Constraint, PageWrapper } from '../common/grid'
 import Button from '../common/button'
 import Space from '../common/space'
 import Icon from '../common/icon'
+import { auth, googleAuthProvider } from '../../config/firebase'
+import { Redirect, withRouter } from 'react-router'
 
 const Bg = styled.div`
   background-image: url('/images/logo.svg');
@@ -17,8 +18,6 @@ const Bg = styled.div`
 
 const Wrapper = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
   margin-top: 180px;
   max-width: 260px;
@@ -39,8 +38,14 @@ const Logo = styled(Icon)`
 class LandingPage extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { isHover: false }
+    this.state = { isHover: false, user: null }
     this.handleHover = this.handleHover.bind(this)
+  }
+
+  componentDidMount() {
+    auth.onAuthStateChanged(user => {
+      this.setState({ user });
+    })
   }
 
   handleHover() {
@@ -49,17 +54,19 @@ class LandingPage extends React.Component {
 
   render() {
     const shift = this.state.isHover ? 'shift' : ''
+    if (this.state.user) {
+      return <Redirect push to="/sign-up"/>
+    }
+
     return (
       <Constraint width="1200" centered>
         <Bg/>
         <PageWrapper>
           <Wrapper>
-            <Link to="/sign-up">
-              <Title>Reverse P<Logo className={shift} name="rpt-logo"/>ramid Training Log</Title>
-              <Space top={1}>
-              <Button onMouseEnter={this.handleHover} onMouseLeave={this.handleHover}>Sign up</Button>
-              </Space>
-            </Link>
+            <Title>Reverse P<Logo className={shift} name="rpt-logo"/>ramid Training Log</Title>
+            <Space top={1}>
+            <Button onClick={() => auth.signInWithRedirect(googleAuthProvider)} onMouseEnter={this.handleHover} onMouseLeave={this.handleHover}>Sign up</Button>
+            </Space>
           </Wrapper>
         </PageWrapper>
       </Constraint>
@@ -67,4 +74,4 @@ class LandingPage extends React.Component {
   }
 }
 
-export default LandingPage
+export default withRouter(LandingPage)
