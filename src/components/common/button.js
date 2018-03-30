@@ -13,7 +13,7 @@ const Button = styled.button`
 
   &:hover {
     background-color: dodgerblue;
-    color: white;
+    color: ${props => props.theme.colors.white};
     border:
   }
 `

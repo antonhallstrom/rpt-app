@@ -6,12 +6,22 @@ import Button from '../common/button'
 import Space from '../common/space'
 import Icon from '../common/icon'
 
+const Bg = styled.div`
+  background-image: url('/images/logo.svg');
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100%;
+  position: absolute;
+  z-index: -1;
+`
+
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 210px;
+  margin-top: 180px;
+  max-width: 260px;
 `
 
 const Title = styled.div`
@@ -41,6 +51,7 @@ class LandingPage extends React.Component {
     const shift = this.state.isHover ? 'shift' : ''
     return (
       <Constraint width="1200" centered>
+        <Bg/>
         <PageWrapper>
           <Wrapper>
             <Link to="/sign-up">

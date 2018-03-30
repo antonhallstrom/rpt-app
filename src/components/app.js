@@ -10,11 +10,6 @@ injectGlobal`
     color: currentColor;
   }
 
-  body {
-    background-image: url('/images/logo.svg');
-    background-repeat: no-repeat;
-  }
-
   @import url('https://fonts.googleapis.com/css?family=Bungee+Shade');
 `
 

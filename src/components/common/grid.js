@@ -9,5 +9,5 @@ export const Constraint = styled.div`
 export const PageWrapper = styled.div`
   padding-top: ${props => props.theme.spacing[1]};
   margin-left: ${props => props.theme.spacing[1]};
-  margin-right: ${props => props.theme.spacing[0]};
+  margin-right: ${props => props.theme.spacing[1]};
 `
