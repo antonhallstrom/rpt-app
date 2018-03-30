@@ -11,5 +11,6 @@ export default {
     black: '#0D0E11',
     white: '#FFFFFF',
     brown: '#323330',
+    yellow: '#EFDA5B',
   }
 }

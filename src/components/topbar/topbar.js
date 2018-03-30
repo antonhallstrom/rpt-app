@@ -2,6 +2,27 @@ import React from 'react'
 import Button from '../common/button'
 import { auth } from '../../config/firebase'
 import { withRouter } from 'react-router-dom'
+import styled from 'styled-components'
+import Icon from '../common/icon'
+
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: ${props => props.theme.spacing[0]};
+  background-color: rgba(0, 0, 0, 0.1);
+`
+
+const Logo = styled(Icon)`
+  font-size: 52px;
+  color: ${props => props.theme.colors.yellow};
+`
+
+const StyledButton = styled(Button)`
+  height: 100%;
+  padding: 12px 16px;
+  font-size: 12px;
+`
 
 class Topbar extends React.Component {
   constructor(props) {
@@ -26,9 +47,10 @@ class Topbar extends React.Component {
       return null
     }
     return (
-     <div>
-        <Button onClick={this.handleSignOut}>Sign out</Button>
-     </div>
+     <Wrapper>
+        <Logo name="rpt-logo"/>
+        <StyledButton onClick={this.handleSignOut}>Sign out</StyledButton>
+     </Wrapper>
     )
   }
 }

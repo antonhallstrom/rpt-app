@@ -14,11 +14,16 @@ class Workout extends React.Component {
   }
 
   render() {
-    if (this.state.authenticated) {
-      return <div>Done</div>
-    } else {
-      return  <div>Waiting</div>
+    if (!this.state.authenticated) {
+      return <div>Waiting</div>
     }
+    return (
+      <div>
+        Workout 1
+        Workout 2
+        Workout 3
+      </div>
+    )
   }
 }
 
