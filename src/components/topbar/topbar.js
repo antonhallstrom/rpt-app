@@ -1,4 +1,5 @@
 import React from 'react'
+import * as R from 'ramda'
 import Button from '../common/button'
 import { auth } from '../../config/firebase'
 import { withRouter } from 'react-router-dom'
@@ -14,8 +15,11 @@ const Wrapper = styled.div`
 `
 
 const Logo = styled(Icon)`
-  font-size: 52px;
+  font-size: 32px;
   color: ${props => props.theme.colors.yellow};
+  ${props => props.rotate && 'transform: rotate(90deg)'};
+  transition-timing-function: ease-out;
+  transition-duration: 0.1s;
 `
 
 const StyledButton = styled(Button)`
@@ -30,6 +34,7 @@ class Topbar extends React.Component {
     super(props)
     this.state = { authenticated: null }
     this.handleSignOut = this.handleSignOut.bind(this)
+    this.handleOnBack = this.handleOnBack.bind(this)
   }
 
   componentDidMount() {
@@ -43,13 +48,19 @@ class Topbar extends React.Component {
     this.props.history.push('/')
   }
 
+  handleOnBack() {
+    this.props.history.push('/workouts')
+  }
+
   render() {
     if (!this.state.authenticated) {
       return null
     }
+
+    const onBack = R.contains('exercice', this.props.location.pathname)
     return (
      <Wrapper>
-        <Logo name="rpt-logo"/>
+        <Logo rotate={onBack} name="rpt-logo" onClick={this.handleOnBack}/>
         <StyledButton onClick={this.handleSignOut}>Sign out</StyledButton>
      </Wrapper>
     )
