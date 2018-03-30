@@ -1,5 +1,6 @@
 export default {
   fonts: {
+    head: 'Bungee Shade, cursive',
     body: 'Open sans',
     sizes: {
       large: ['14px', '18px', '22px'],
