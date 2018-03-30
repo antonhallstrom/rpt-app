@@ -10,7 +10,7 @@ const Wrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: ${props => props.theme.spacing[0]};
-  background-color: rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0,0,0,0.1);
 `
 
 const Logo = styled(Icon)`
@@ -22,6 +22,7 @@ const StyledButton = styled(Button)`
   height: 100%;
   padding: 12px 16px;
   font-size: 12px;
+  border: none;
 `
 
 class Topbar extends React.Component {

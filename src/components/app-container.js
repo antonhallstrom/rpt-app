@@ -6,12 +6,17 @@ import { auth } from '../config/firebase'
 injectGlobal`
   ${reset};
 
+  body {
+    font-family: 'Open Sans', sans-serif;
+  }
+
   a {
     text-decoration: none;
     color: currentColor;
   }
 
   @import url('https://fonts.googleapis.com/css?family=Bungee+Shade');
+  @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 `
 
 class AppContainer extends React.Component {
