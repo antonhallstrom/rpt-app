@@ -38,13 +38,13 @@ const Logo = styled(Icon)`
 class LandingPage extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { isHover: false, user: null }
+    this.state = { isHover: false, authenticated: null }
     this.handleHover = this.handleHover.bind(this)
   }
 
   componentDidMount() {
-    auth.onAuthStateChanged(user => {
-      this.setState({ user });
+    auth.onAuthStateChanged(authenticated => {
+      this.setState({ authenticated });
     })
   }
 
@@ -54,7 +54,7 @@ class LandingPage extends React.Component {
 
   render() {
     const shift = this.state.isHover ? 'shift' : ''
-    if (this.state.user) {
+    if (this.state.authenticated) {
       return <Redirect push to="/sign-up"/>
     }
 
