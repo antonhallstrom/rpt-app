@@ -15,16 +15,8 @@ injectGlobal`
 `
 
 class AppContainer extends React.Component {
-  componentDidMount() {
-    auth.onAuthStateChanged(user => {
-      if (user) {
-        return <Redirect to="/sign-up"/>
-      }
-    })
-  }
-
   render() {
-    return <div></div>
+    return <div>dadas</div>
   }
 }
 

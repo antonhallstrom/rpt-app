@@ -55,7 +55,7 @@ class LandingPage extends React.Component {
   render() {
     const shift = this.state.isHover ? 'shift' : ''
     if (this.state.authenticated) {
-      return <Redirect push to="/sign-up"/>
+      return <Redirect push to="/workouts"/>
     }
 
     return (
