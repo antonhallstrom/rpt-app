@@ -8,6 +8,7 @@ const webpack = require('webpack')
 const HappyPack = require('happypack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const WDS_HOST = '0.0.0.0'
 const WDS_PORT = 4000
@@ -59,6 +60,10 @@ module.exports = {
         test: /\.icon\.svg$/i,
         loader: 'svg-sprite-loader',
       },
+      {
+        test: /(\.ttf|\.eot|fontawesome-webfont\.svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'file-loader',
+      },
     ],
   },
   plugins: [
@@ -94,6 +99,7 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(PROD ? 'production' : 'development'),
     }),
+    new CopyWebpackPlugin([{ from: 'static' }]),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.ProvidePlugin({ React: 'react' }),
     PROD && new webpack.optimize.ModuleConcatenationPlugin(),
