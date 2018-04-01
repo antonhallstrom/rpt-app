@@ -1,5 +1,6 @@
 import './assets/rpt-logo.icon.svg'
 import './assets/add-circle-outline.icon.svg'
+import './assets/caret-down.icon.svg'
 
 import PropTypes from 'prop-types'
 import * as R from 'ramda'
@@ -44,6 +45,7 @@ const PngIcon = styled(DefaultIcon)`
 const SVG_ICONS = [
   'rpt-logo',
   'add-circle-outline',
+  'caret-down'
 ]
 
 const PNG_ICONS = []
