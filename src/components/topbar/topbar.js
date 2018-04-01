@@ -1,6 +1,5 @@
 import React from 'react'
 import * as R from 'ramda'
-import Button from '../common/button'
 import { auth } from '../../config/firebase'
 import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
@@ -10,23 +9,14 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: ${props => props.theme.spacing[0]};
-  border-bottom: 1px solid rgba(0,0,0,0.1);
+  padding: ${props => props.theme.spacing[0]} ${props => props.theme.spacing[1]};
+  background-color: ${props => props.theme.colors.yellow};
+  min-height: 32px;
+  color: ${props => props.theme.colors.brown};
 `
 
-const Logo = styled(Icon)`
-  font-size: 32px;
-  color: ${props => props.theme.colors.yellow};
-  ${props => props.rotate && 'transform: rotate(90deg)'};
-  transition-timing-function: ease-out;
-  transition-duration: 0.1s;
-`
-
-const StyledButton = styled(Button)`
-  height: 100%;
-  padding: 12px 16px;
-  font-size: 12px;
-  border: none;
+const Title = styled.div`
+  font-size: 16px;
 `
 
 class Topbar extends React.Component {
@@ -56,13 +46,20 @@ class Topbar extends React.Component {
     if (!this.state.authenticated) {
       return null
     }
-
     const onBack = R.contains('exercice', this.props.location.pathname)
     return (
-     <Wrapper>
-        <Logo rotate={onBack} name="rpt-logo" onClick={this.handleOnBack}/>
-        <StyledButton onClick={this.handleSignOut}>Sign out</StyledButton>
-     </Wrapper>
+     <div>
+        {R.contains('create-exercice', this.props.location.pathname) &&
+        <Wrapper>
+          <Icon size="big" name="arrow-back" onClick={this.handleOnBack}/><Title>Create Exercice</Title><Icon name="check" size="big"/>
+        </Wrapper>
+        }
+        {R.contains('workouts', this.props.location.pathname) &&
+        <Wrapper>
+          <Icon size="big" name="rpt-logo"/>
+        </Wrapper>
+        }
+     </div>
     )
   }
 }

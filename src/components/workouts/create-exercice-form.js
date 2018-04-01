@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import Icon from '../common/icon'
+import Space from '../common/space'
 
 const Wrapper = styled.div`
   position: relative;
@@ -11,7 +12,8 @@ const Select = styled.select`
   font-family: ${props => props.theme.fonts.body};
   font-size: ${props => props.theme.fonts.sizes.large[0]};
   width: 100%;
-  border: 2px solid ghostwhite;
+  border: 2px solid white;
+  border-radius: 0;
   padding: ${props => props.theme.spacing[0]};
   outline: none;
   appearance: none;
@@ -42,8 +44,7 @@ const WeightUnit = styled.span`
 
 const InputWrapper = styled.div`
   box-sizing: border-box;
-  border: 2px solid ghostwhite;
-  border-radius: 4px;
+  border: 2px solid white;
 `
 
 const Input = styled.input`
@@ -65,6 +66,16 @@ function CreateExerciceForm() {
     <div>
       <Wrapper>
         <Select name="exercices">
+          <option>Select workout</option>
+          <option value={'Deadlift'}>Workout 1</option>
+          <option value={'Deadlift'}>Workout 2</option>
+          <option value={'Deadlift'}>Workout 3</option>
+        </Select>
+        <Arrow name="caret-down"/>
+      </Wrapper>
+      <Space y={0}/>
+      <Wrapper>
+        <Select name="exercices">
           <option>Exercices</option>
           <option value={'Deadlift'}>Deadlift</option>
           <option value={'Deadlift'}>Squats</option>
@@ -74,6 +85,7 @@ function CreateExerciceForm() {
         </Select>
         <Arrow name="caret-down"/>
       </Wrapper>
+      <Space y={0}/>
       <Wrapper>
         <Select name="goal">
           <option>Goal</option>
@@ -86,6 +98,7 @@ function CreateExerciceForm() {
         </Select>
         <Arrow name="caret-down"/>
       </Wrapper>
+      <Space y={0}/>
       <Wrapper>
         <InputWrapper>
           <Input placeholder="Initial Load" />

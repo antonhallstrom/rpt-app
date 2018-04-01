@@ -7,6 +7,7 @@ injectGlobal`
   ${reset};
 
   body {
+    background-color: #F9F9F9;
     font-family: 'Montserrat', sans-serif;
   }
 

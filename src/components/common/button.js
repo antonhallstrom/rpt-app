@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 const Button = styled.button`
   padding: 16px 32px;
-  color: black;
+  color: ${props => props.theme.colors.brown};
   cursor: pointer;
   outline: none;
   border-radius: 32px;

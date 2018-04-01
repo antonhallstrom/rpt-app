@@ -8,24 +8,23 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: ${props => props.theme.spacing[1]};
+  padding: ${props => props.theme.spacing[2]};
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   width: 100%;
-  background-color: ghostwhite;
+  background-color: #EEEEEE;
 `
 
 const AddIcon = styled(Icon)`
-  font-size: 42px;
+  font-size: 48px;
   color: ${props => props.theme.colors.green};
   left: 50%;
-  bottom: 10px;
+  bottom: 22px;
   transform: translateX(-50%);
   position: fixed;
   border-radius: 50%;
-  border: 1px solid lightyellow;
   background-color: white;
 `
 

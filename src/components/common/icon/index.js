@@ -1,6 +1,10 @@
 import './assets/rpt-logo.icon.svg'
 import './assets/add-circle-outline.icon.svg'
 import './assets/caret-down.icon.svg'
+import './assets/account-circle.icon.svg'
+import './assets/arrow-back.icon.svg'
+import './assets/check.icon.svg'
+import './assets/add.icon.svg'
 
 import PropTypes from 'prop-types'
 import * as R from 'ramda'
@@ -12,7 +16,7 @@ function size(props) {
     return ''
   }
 
-  return `font-size: ${props.size === 'big' ? '30px' : '20px'};`
+  return `font-size: ${props.size === 'big' ? '24px' : '16px'};`
 }
 
 const DefaultIcon = styled.span`
@@ -45,7 +49,11 @@ const PngIcon = styled(DefaultIcon)`
 const SVG_ICONS = [
   'rpt-logo',
   'add-circle-outline',
-  'caret-down'
+  'caret-down',
+  'account-circle',
+  'arrow-back',
+  'check',
+  'add',
 ]
 
 const PNG_ICONS = []
