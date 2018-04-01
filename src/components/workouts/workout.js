@@ -2,6 +2,9 @@ import React from 'react'
 import { auth } from '../../config/firebase'
 import { Constraint, PageWrapper } from '../common/grid'
 import Spinner from '../spinner'
+import { Card } from '../common/card'
+import Space from '../common/space'
+import { Link } from 'react-router-dom'
 
 class Workout extends React.Component {
   constructor(props) {
@@ -23,6 +26,17 @@ class Workout extends React.Component {
     return (
       <Constraint width="1200" centered>
         <PageWrapper>
+          <Card>
+            <Link to="workout">Workout 1</Link>
+          </Card>
+          <Space bottom={0}/>
+          <Card>
+            Workout 2
+          </Card>
+          <Space bottom={0}/>
+          <Card>
+            Workout 3
+          </Card>
         </PageWrapper>
       </Constraint>
     )

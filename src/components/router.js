@@ -7,6 +7,7 @@ import Workout from './workouts/workout'
 import Topbar from './topbar/topbar'
 import ExerciceContainer from './workouts/exercice-container'
 import Bottombar from './bottombar/bottombar'
+import WorkoutContainer from './workouts/workout-container'
 
 function Router() {
   return (
@@ -16,6 +17,7 @@ function Router() {
         <Route component={AppContainer} />
         <Route component={LandingPage} exact path="/" />
         <Route component={Workout} path="/workouts" />
+        <Route component={WorkoutContainer} path="/workout"/>
         <Route component={ExerciceContainer} path="/create-exercice"/>
         <Route component={Bottombar} />
       </div>

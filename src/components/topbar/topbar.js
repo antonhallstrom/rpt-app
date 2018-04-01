@@ -46,17 +46,22 @@ class Topbar extends React.Component {
     if (!this.state.authenticated) {
       return null
     }
-    const onBack = R.contains('exercice', this.props.location.pathname)
+
     return (
      <div>
-        {R.contains('create-exercice', this.props.location.pathname) &&
+        {R.equals('/create-exercice', this.props.location.pathname) &&
         <Wrapper>
           <Icon size="big" name="arrow-back" onClick={this.handleOnBack}/><Title>Create Exercice</Title><Icon name="check" size="big"/>
         </Wrapper>
         }
-        {R.contains('workouts', this.props.location.pathname) &&
+        {R.equals('/workouts', this.props.location.pathname) &&
         <Wrapper>
           <Icon size="big" name="rpt-logo"/>
+        </Wrapper>
+        }
+        {R.equals('/workout', this.props.location.pathname) &&
+        <Wrapper>
+          <Icon size="big" name="arrow-back" onClick={this.handleOnBack}/>
         </Wrapper>
         }
      </div>

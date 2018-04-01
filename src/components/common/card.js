@@ -5,4 +5,5 @@ export const Card = styled.div`
   padding: ${props => props.theme.spacing[1]};
   overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: ${props => props.theme.colors.white};
 `
