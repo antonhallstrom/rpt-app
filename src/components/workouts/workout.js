@@ -5,6 +5,14 @@ import Spinner from '../spinner'
 import { Card } from '../common/card'
 import Space from '../common/space'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+
+
+const Title = styled.div`
+  ${props => props.isCompleted && 'text-decoration: line-through'};
+  text-align: center;
+`
+
 
 class Workout extends React.Component {
   constructor(props) {
@@ -26,17 +34,23 @@ class Workout extends React.Component {
     return (
       <Constraint width="1200" centered>
         <PageWrapper>
-          <Card>
-            <Link to="workout">Workout 1</Link>
-          </Card>
+          <Link to="workout/1">
+            <Card>
+              <Title>Workout 1</Title>
+            </Card>
+          </Link>
           <Space bottom={0}/>
-          <Card>
-            Workout 2
-          </Card>
+          <Link to="workout/2">
+            <Card>
+              <Title isCompleted>Workout 2</Title>
+            </Card>
+          </Link>
           <Space bottom={0}/>
-          <Card>
-            Workout 3
-          </Card>
+          <Link to="workout/3">
+            <Card>
+              <Title isCompleted>Workout 3</Title>
+            </Card>
+          </Link>
         </PageWrapper>
       </Constraint>
     )

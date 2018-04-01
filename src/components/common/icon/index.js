@@ -5,6 +5,7 @@ import './assets/account-circle.icon.svg'
 import './assets/arrow-back.icon.svg'
 import './assets/check.icon.svg'
 import './assets/add.icon.svg'
+import './assets/arrow-forward.icon.svg'
 
 import PropTypes from 'prop-types'
 import * as R from 'ramda'
@@ -54,6 +55,7 @@ const SVG_ICONS = [
   'arrow-back',
   'check',
   'add',
+  'arrow-forward',
 ]
 
 const PNG_ICONS = []

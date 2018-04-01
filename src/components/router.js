@@ -17,7 +17,7 @@ function Router() {
         <Route component={AppContainer} />
         <Route component={LandingPage} exact path="/" />
         <Route component={Workout} path="/workouts" />
-        <Route component={WorkoutContainer} path="/workout"/>
+        <Route component={WorkoutContainer} path="/workout/:id"/>
         <Route component={ExerciceContainer} path="/create-exercice"/>
         <Route component={Bottombar} />
       </div>

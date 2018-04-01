@@ -56,10 +56,10 @@ class Topbar extends React.Component {
         }
         {R.equals('/workouts', this.props.location.pathname) &&
         <Wrapper>
-          <Icon size="big" name="rpt-logo"/>
+          <Icon size="big" name="rpt-logo"/><Title onClick={this.handleSignOut}>Sign out</Title>
         </Wrapper>
         }
-        {R.equals('/workout', this.props.location.pathname) &&
+        {R.equals('/workout/1', this.props.location.pathname) &&
         <Wrapper>
           <Icon size="big" name="arrow-back" onClick={this.handleOnBack}/>
         </Wrapper>
