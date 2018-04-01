@@ -1,7 +1,7 @@
 export default {
   fonts: {
-    head: 'Bungee Shade, cursive',
-    body: 'Open sans',
+    head: 'Montserrat, sans-serif',
+    body: 'Lora, serif',
     sizes: {
       large: ['14px', '18px', '22px'],
       small: ['12px', '14px', '16px'],
@@ -13,5 +13,6 @@ export default {
     white: '#FFFFFF',
     brown: '#323330',
     yellow: '#EFDA5B',
+    green: 'mediumspringgreen',
   }
 }

@@ -4,6 +4,10 @@ import styled from 'styled-components'
 import { Constraint, PageWrapper } from '../common/grid'
 import { Link } from 'react-router-dom'
 import Spinner from '../spinner'
+import Icon from '../common/icon'
+import { Card } from '../common/card'
+import Space from '../common/space'
+
 const Item = styled(Link)`
   display: block;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -15,6 +19,19 @@ const Item = styled(Link)`
   font-family: ${props => props.theme.fonts.head};
   color: ${props => props.color};
   background-color: ${props => props.bg};
+`
+
+const AddIcon = styled(Icon)`
+  font-size: 32px;
+  color: ${props => props.theme.colors.green};
+`
+
+const Header = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  font-family: ${props => props.theme.fonts.head};
 `
 
 class Workout extends React.Component {
@@ -37,6 +54,13 @@ class Workout extends React.Component {
     return (
       <Constraint width="1200" centered>
         <PageWrapper>
+          <Space bottom={0}>
+            <Card>
+              <Header>
+                Add workout <AddIcon name="add-circle-outline"/>
+              </Header>
+            </Card>
+          </Space>
           <Item bg="mediumspringgreen" color="cadetblue" to="/exercice/1">Workout 1</Item>
           <Item bg="ghostwhite" color="gainsboro" to="/exercice/2">Workout 2</Item>
           <Item bg="ghostwhite" color="gainsboro" to="/exercice/3">Workout 3</Item>

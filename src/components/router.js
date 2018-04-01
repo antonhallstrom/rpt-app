@@ -5,7 +5,7 @@ import AppContainer from './app-container'
 import LandingPage from './landing-page/landing-page'
 import Workout from './workouts/workout'
 import Topbar from './topbar/topbar'
-import Exercice from './workouts/exercice'
+import ExerciceContainer from './workouts/exercice-container'
 
 function Router() {
   return (
@@ -15,7 +15,7 @@ function Router() {
         <Route component={AppContainer} />
         <Route component={LandingPage} exact path="/" />
         <Route component={Workout} path="/workouts" />
-        <Route component={Exercice} path="/exercice/:id"/>
+        <Route component={ExerciceContainer} path="/exercice/:id"/>
       </div>
     </ReactRouter>
   )

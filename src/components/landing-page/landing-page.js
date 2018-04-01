@@ -21,12 +21,12 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 180px;
-  max-width: 260px;
+  max-width: 230px;
 `
 
 const Title = styled.div`
-  font-family: 'Bungee Shade', cursive;
   font-size: 42px;
+  text-transform: uppercase;
   color: ${props => props.theme.colors.brown};
 `
 

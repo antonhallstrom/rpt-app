@@ -7,7 +7,7 @@ injectGlobal`
   ${reset};
 
   body {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Montserrat', sans-serif;
   }
 
   a {
@@ -15,8 +15,8 @@ injectGlobal`
     color: currentColor;
   }
 
-  @import url('https://fonts.googleapis.com/css?family=Bungee+Shade');
-  @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+  @import url('https://fonts.googleapis.com/css?family=Montserrat');
+  @import url('https://fonts.googleapis.com/css?family=Lora:400i');
 `
 
 class AppContainer extends React.Component {

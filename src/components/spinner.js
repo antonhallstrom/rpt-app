@@ -19,8 +19,8 @@ const Spinner = styled.div`
   margin-top: -20px;
   margin-left: -20px;
   border-radius: 50%;
-  border-top: 2px solid #07d;
-  border-right: 2px solid transparent;
+  border-top: 2px solid mediumspringgreen;
+  border-right: 2px solid cadetblue;
   animation: ${spin} .6s linear infinite;
 }
 `
