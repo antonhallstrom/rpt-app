@@ -25,7 +25,9 @@ class HomeContainer extends React.Component {
 
   componentDidMount() {
     auth.onAuthStateChanged(auth => {
-      this.setState({ authenticated: auth });
+      if (auth) {
+        this.setState({ authenticated: auth });
+      }
     })
   }
 
