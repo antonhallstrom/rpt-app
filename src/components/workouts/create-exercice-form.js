@@ -100,6 +100,16 @@ function CreateExerciceForm() {
       </Wrapper>
       <Space y={0}/>
       <Wrapper>
+        <Select name="sets">
+          <option>Sets</option>
+          <option value={2}>1</option>
+          <option value={4}>2</option>
+          <option value={6}>3</option>
+        </Select>
+        <Arrow name="caret-down"/>
+      </Wrapper>
+      <Space y={0}/>
+      <Wrapper>
         <InputWrapper>
           <Input placeholder="Initial Load" />
           <WeightUnit>kg</WeightUnit>
