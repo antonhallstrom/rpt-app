@@ -13,6 +13,9 @@ const Wrapper = styled.div`
   background-color: ${props => props.theme.colors.yellow};
   min-height: 32px;
   color: ${props => props.theme.colors.brown};
+  position: fixed;
+  left: 0;
+  right: 0;
 `
 
 const Title = styled.div`
