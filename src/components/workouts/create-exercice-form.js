@@ -60,7 +60,6 @@ const Input = styled.input`
   width: 100%;
   &:focus {
     outline: none;
-    font-size: initial;
   }
   &::placeholder {
     color: ${props => props.theme.colors.black};
