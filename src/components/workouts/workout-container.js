@@ -1,9 +1,11 @@
 import React from 'react'
+import Proptypes from 'prop-types'
 import { auth } from '../../config/firebase'
 import { Constraint, PageWrapper } from '../common/grid'
 import Spinner from '../spinner'
 import styled from 'styled-components'
 import Space from '../common/space'
+import Topbar from '../topbar/topbar'
 
 const Title = styled.div`
   text-align: center;
@@ -41,7 +43,7 @@ const TableData = styled.td`
   border: 1px solid ghostwhite;
 `
 
-const InputWrapper = styled.div`
+const InputWrapper = styled.td`
   box-sizing: border-box;
   border: 1px solid ghostwhite;
   width: 100%;
@@ -69,6 +71,8 @@ class WorkoutContainer extends React.Component {
   constructor(props) {
     super(props)
     this.state = { authenticated: null }
+    this.handleOnSave = this.handleOnSave.bind(this)
+    this.handleOnBack = this.handleOnBack.bind(this)
   }
 
   componentDidMount() {
@@ -77,12 +81,22 @@ class WorkoutContainer extends React.Component {
     })
   }
 
+  handleOnBack() {
+    this.props.history.push('/workouts')
+  }
+
+  handleOnSave() {
+
+  }
+
   render() {
     if (!this.state.authenticated) {
       return <Spinner/>
     }
 
     return (
+      <React.Fragment>
+      <Topbar onBack={this.handleOnBack} title="Create account" onSave={this.handleOnSave}/>
       <Constraint width="1200" centered>
         <PageWrapper>
           <Space bottom={0}>
@@ -141,8 +155,16 @@ class WorkoutContainer extends React.Component {
           </Table>
         </PageWrapper>
       </Constraint>
+      </React.Fragment>
     )
   }
 }
+
+WorkoutContainer.propTypes = {
+  history: Proptypes.object,
+  location: Proptypes.object,
+  onSignOut: Proptypes.func,
+}
+
 
 export default WorkoutContainer

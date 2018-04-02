@@ -3,8 +3,7 @@ import { BrowserRouter as ReactRouter, Route } from "react-router-dom";
 
 import AppContainer from './app-container'
 import LandingPage from './landing-page/landing-page'
-import Workout from './workouts/workout'
-import Topbar from './topbar/topbar'
+import HomeContainer from './home-container'
 import ExerciceContainer from './workouts/exercice-container'
 import Bottombar from './bottombar/bottombar'
 import WorkoutContainer from './workouts/workout-container'
@@ -13,10 +12,9 @@ function Router() {
   return (
     <ReactRouter>
       <div>
-        <Route component={Topbar} />
         <Route component={AppContainer} />
         <Route component={LandingPage} exact path="/" />
-        <Route component={Workout} path="/workouts" />
+        <Route component={HomeContainer} path="/workouts" />
         <Route component={WorkoutContainer} path="/workout/:id"/>
         <Route component={ExerciceContainer} path="/create-exercice"/>
         <Route component={Bottombar} />

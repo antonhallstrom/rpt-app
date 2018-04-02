@@ -1,6 +1,5 @@
 import React from 'react'
-import * as R from 'ramda'
-import { auth } from '../../config/firebase'
+import Proptypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import Icon from '../common/icon'
@@ -22,54 +21,42 @@ const Title = styled.div`
   font-size: 16px;
 `
 
-class Topbar extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = { authenticated: null }
-    this.handleSignOut = this.handleSignOut.bind(this)
-    this.handleOnBack = this.handleOnBack.bind(this)
-  }
+const Flex = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+`
 
-  componentDidMount() {
-    auth.onAuthStateChanged(auth => {
-      this.setState({ authenticated: auth });
-    })
-  }
+function Topbar(props) {
+  return (
+    <Wrapper>
+      {props.onBack &&
+      <Icon size="big" name="arrow-back" onClick={props.onBack}/>
+      }
+      {props.title &&
+      <Title>{props.title}</Title>
+      }
+      {props.onSave &&
+      <Icon name="check" size="big" onClick={props.onSave}/>
+      }
+      {props.onSignOut &&
+      <Flex>
+        <Icon size="big" name="rpt-logo"/><Title onClick={props.onSignOut}>Sign out</Title>
+      </Flex>
+      }
+    </Wrapper>
+  )
+}
 
-  handleSignOut() {
-    auth.signOut()
-    this.props.history.push('/')
-  }
 
-  handleOnBack() {
-    this.props.history.push('/workouts')
-  }
-
-  render() {
-    if (!this.state.authenticated) {
-      return null
-    }
-
-    return (
-     <div>
-        {R.equals('/create-exercice', this.props.location.pathname) &&
-        <Wrapper>
-          <Icon size="big" name="arrow-back" onClick={this.handleOnBack}/><Title>Create Exercice</Title><Icon name="check" size="big"/>
-        </Wrapper>
-        }
-        {R.equals('/workouts', this.props.location.pathname) &&
-        <Wrapper>
-          <Icon size="big" name="rpt-logo"/><Title onClick={this.handleSignOut}>Sign out</Title>
-        </Wrapper>
-        }
-        {R.equals('/workout/1', this.props.location.pathname) &&
-        <Wrapper>
-          <Icon size="big" name="arrow-back" onClick={this.handleOnBack}/>
-        </Wrapper>
-        }
-     </div>
-    )
-  }
+Topbar.propTypes = {
+  title: Proptypes.string,
+  history: Proptypes.object,
+  location: Proptypes.object,
+  onBack: Proptypes.func,
+  onSave: Proptypes.func,
+  onSignOut: Proptypes.func,
 }
 
 export default withRouter(Topbar)
