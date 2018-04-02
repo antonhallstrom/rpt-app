@@ -20,7 +20,7 @@ const Bg = styled.div`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 180px;
+  margin-top: 140px;
   max-width: 230px;
 `
 
@@ -51,8 +51,9 @@ class LandingPage extends React.Component {
     const shift = this.state.isHover ? 'shift' : ''
 
     return (
+      <div>
+      <Bg/>
       <Constraint width="1200" centered>
-        <Bg/>
         <PageWrapper>
           <Wrapper>
             <Title>Reverse P<Logo className={shift} name="rpt-logo"/>ramid Training Log</Title>
@@ -62,6 +63,7 @@ class LandingPage extends React.Component {
           </Wrapper>
         </PageWrapper>
       </Constraint>
+      </div>
     )
   }
 }

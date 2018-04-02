@@ -108,7 +108,7 @@ class WorkoutContainer extends React.Component {
             <TableRow>
               <TableData>3</TableData>
               <TableData>80</TableData>
-              <InputWrapper><Input value="12"/></InputWrapper>
+              <InputWrapper><Input placeholder="12"/></InputWrapper>
             </TableRow>
             </tbody>
           </Table>

@@ -8,7 +8,7 @@ export const Constraint = styled.div`
 
 export const PageWrapper = styled.div`
   padding-top: 64px;
-  padding-bottom: 64px;
+  padding-bottom: 84px;
   margin-left: ${props => props.theme.spacing[1]};
   margin-right: ${props => props.theme.spacing[1]};
 `

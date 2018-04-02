@@ -45,6 +45,7 @@ const WeightUnit = styled.span`
 const InputWrapper = styled.div`
   box-sizing: border-box;
   border: 2px solid white;
+  background-color: white;
 `
 
 const Input = styled.input`
@@ -52,9 +53,14 @@ const Input = styled.input`
   font-family: ${props => props.theme.fonts.body};
   font-size: ${props => props.theme.fonts.sizes.large[0]};
   box-sizing: border-box;
+  -webkit-appearance: none;
+  border: none;
+  border-radius: none;
+  outline: none;
   width: 100%;
   &:focus {
     outline: none;
+    font-size: initial;
   }
   &::placeholder {
     color: ${props => props.theme.colors.black};
