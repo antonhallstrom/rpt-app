@@ -225,18 +225,12 @@ class ExerciceContainer extends React.Component {
 
     const x = () => {
       let temp = []
+
       for (var i = 0; i < this.state.sets; i++) {
-        if (i === 0) {
-          temp = R.append({
-            set: i + 1,
-            weight: this.state.weight,
-            reps: this.state.goal,
-          }, temp)
-        }
         temp = R.append({
           set: i,
-          weight: this.state.weight - (this.state.decrease * this.state.weight),
-          reps: JSON.parse(this.state.goal) + 2
+          weight: this.state.weight - ((this.state.decrease * i) * this.state.weight),
+          reps: JSON.parse(this.state.goal) + i++
         }, temp)
     }
       return temp
