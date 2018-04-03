@@ -1,16 +1,178 @@
 import React from 'react'
 import Proptypes from 'prop-types'
+import styled from 'styled-components'
+
 import { auth, database } from '../../config/firebase'
-import { Constraint, PageWrapper } from '../common/grid'
+
 import Topbar from '../topbar/topbar'
-import CreateExericesForm from './create-exercice-form'
+import { Constraint, PageWrapper } from '../common/grid'
+import Space from '../common/space'
+import Select from '../common/select'
+
+const Wrapper = styled.div`
+  position: relative;
+`
+
+const WeightUnit = styled.span`
+  position: absolute;
+  top: 50%;
+  right: ${props => props.theme.spacing[0]};
+  margin-top: -0.5em;
+  font-family: ${props => props.theme.fonts.body};
+`
+
+const InputWrapper = styled.div`
+  box-sizing: border-box;
+  border: 2px solid white;
+  background-color: white;
+`
+
+const Input = styled.input`
+  padding: ${props => props.theme.spacing[0]};
+  font-family: ${props => props.theme.fonts.body};
+  font-size: ${props => props.theme.fonts.sizes.large[0]};
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  border: none;
+  border-radius: none;
+  outline: none;
+  width: 100%;
+  &:focus {
+    outline: none;
+  }
+  &::placeholder {
+    color: ${props => props.theme.colors.black};
+  }
+`
+
+const workoutOptions = [
+  {
+    value: '',
+    label: 'Workouts',
+  },
+  {
+    value: 'wo1',
+    label: 'Workout 1',
+  },
+  {
+    value: 'wo2',
+    label: 'Workout 2',
+  },
+  {
+    value: 'wo3',
+    label: 'Workout 3',
+  },
+]
+
+const exerciceOptions = [
+  {
+    value: '',
+    label: 'Exercice',
+  },
+  {
+    value: 'squats',
+    label: 'Squats',
+  },
+  {
+    value: 'benchPress',
+    label: 'Bench Press',
+  },
+  {
+    value: 'deadlift',
+    label: 'Deadlift',
+  },
+  {
+    value: 'weightedChinUp',
+    label: 'Weighted Chin-Up',
+  },
+  {
+    value: 'row',
+    label: 'Row',
+  },
+  {
+    value: 'calves',
+    label: 'Calves',
+  },
+  {
+    value: 'bicepCurl',
+    label: 'Bicep Curl',
+  },
+  {
+    value: 'weightedDip',
+    label: 'Weighted Dip',
+  },
+  {
+    value: 'overheadPress',
+    label: 'Overhead Press',
+  },
+]
+
+const goalOptions = [
+  {
+    value: '',
+    label: 'Goal',
+  },
+  {
+    value: 2,
+    label: '2',
+  },
+  {
+    value: 4,
+    label: '4',
+  },
+  {
+    value: 6,
+    label: '6',
+  },
+  {
+    value: 8,
+    label: '8',
+  },
+  {
+    value: 10,
+    label: '10',
+  },
+  {
+    value: 12,
+    label: '12',
+  },
+]
+
+const setOptions = [
+  {
+    value: '',
+    label: 'Sets',
+  },
+  {
+    value: 1,
+    label: '1',
+  },
+  {
+    value: 2,
+    label: '2',
+  },
+  {
+    value: 3,
+    label: '3',
+  },
+]
 
 class ExerciceContainer extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { exercises: null, currentUser: null  }
-    this.handleOnSave = this.handleOnSave.bind(this)
-    this.handleOnBack = this.handleOnBack.bind(this)
+    this.state = {
+      exercises: null,
+      currentUser: null,
+      workout: '',
+      exercice: '',
+      goal: '',
+      sets: '',
+      weight: '',
+    }
+
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleBack = this.handleBack.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
   componentDidMount() {
@@ -21,27 +183,70 @@ class ExerciceContainer extends React.Component {
     var exercisesRef = database.ref('user01');
 
     exercisesRef.on('value', snapshot => {
-      console.log(snapshot.val())
       this.setState({ exercises: snapshot.val() });
-      console.log(this.state.exercises)
     })
   }
 
-  handleOnBack() {
+	handleChange(event) {
+		this.setState({
+			[event.target.name]: event.target.value
+    })
+	}
+
+
+  handleBack() {
     this.props.history.push('/workouts')
   }
 
-  handleOnSave() {
+  handleSubmit() {
 
   }
 
   render() {
     return (
       <div>
-        <Topbar onBack={this.handleOnBack} onSave={this.handleOnSave}/>
+        <Topbar onBack={this.handleBack} onSave={this.handleSubmit}/>
         <Constraint width="1200" centered>
           <PageWrapper>
-              <CreateExericesForm />
+            <Select
+              name="workout"
+              value={this.state.workout}
+              options={workoutOptions}
+              onChange={this.handleChange}
+            />
+            <Space y={0}/>
+            <Select
+              name="exercice"
+              value={this.state.exercice}
+              options={exerciceOptions}
+              onChange={this.handleChange}
+            />
+            <Space y={0}/>
+            <Select
+              name="goal"
+              value={this.state.goal}
+              options={goalOptions}
+              onChange={this.handleChange}
+              />
+            <Space y={0}/>
+            <Select
+              name="sets"
+              value={this.state.sets}
+              options={setOptions}
+              onChange={this.handleChange}
+              />
+            <Space y={0}/>
+            <Wrapper>
+              <InputWrapper>
+                <Input
+                name="weight"
+                value={this.state.weight}
+                placeholder="Initial Load"
+                onChange={this.handleChange}
+                />
+                <WeightUnit>kg</WeightUnit>
+              </InputWrapper>
+            </Wrapper>
           </PageWrapper>
         </Constraint>
       </div>
