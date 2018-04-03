@@ -1,6 +1,7 @@
 import React from 'react'
 import Proptypes from 'prop-types'
-import { auth } from '../../config/firebase'
+import * as R from 'ramda'
+import { auth, database } from '../../config/firebase'
 import { Constraint, PageWrapper } from '../common/grid'
 import Spinner from '../spinner'
 import styled from 'styled-components'
@@ -70,7 +71,10 @@ const Input = styled.input`
 class WorkoutContainer extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { authenticated: null }
+    this.state = {
+      exercises: null,
+      authenticated: null
+    }
     this.handleOnSave = this.handleOnSave.bind(this)
     this.handleOnBack = this.handleOnBack.bind(this)
   }
@@ -80,6 +84,11 @@ class WorkoutContainer extends React.Component {
       if (auth) {
         this.setState({ authenticated: auth });
       }
+    })
+    var exercisesRef = database.ref(`user01/workouts/${this.props.match.params.id}`);
+
+    exercisesRef.on('value', snapshot => {
+      this.setState({ exercises: [snapshot.val()] });
     })
   }
 
@@ -98,65 +107,42 @@ class WorkoutContainer extends React.Component {
 
     return (
       <React.Fragment>
-      <Topbar onBack={this.handleOnBack} title="Create account" onSave={this.handleOnSave}/>
-      <Constraint width="1200" centered>
-        <PageWrapper>
-          <Space bottom={0}>
-          <Title>Deadlift</Title>
-          <Space bottom={0}/>
-          <Table>
-            <tbody>
-            <TableRow>
-              <TableHeading>#</TableHeading>
-              <TableHeading>Kg</TableHeading>
-              <TableHeading>Reps</TableHeading>
-            </TableRow>
-            <TableRow>
-              <TableData>1</TableData>
-              <TableData>100</TableData>
-              <InputWrapper><Input value="8"/></InputWrapper>
-            </TableRow>
-            <TableRow>
-              <TableData>2</TableData>
-              <TableData>90</TableData>
-              <InputWrapper><Input value="10"/></InputWrapper>
-            </TableRow>
-            <TableRow>
-              <TableData>3</TableData>
-              <TableData>80</TableData>
-              <InputWrapper><Input placeholder="12"/></InputWrapper>
-            </TableRow>
-            </tbody>
-          </Table>
-          </Space>
-          <Title>Rows</Title>
-          <Space bottom={0}/>
-          <Table>
-            <tbody>
-            <TableRow>
-              <TableHeading>#</TableHeading>
-              <TableHeading>Kg</TableHeading>
-              <TableHeading>Reps</TableHeading>
-            </TableRow>
-            <TableRow>
-              <TableData>1</TableData>
-              <TableData>100</TableData>
-              <InputWrapper><Input value="8"/></InputWrapper>
-            </TableRow>
-            <TableRow>
-              <TableData>2</TableData>
-              <TableData>90</TableData>
-              <InputWrapper><Input value="10"/></InputWrapper>
-            </TableRow>
-            <TableRow>
-              <TableData>3</TableData>
-              <TableData>80</TableData>
-              <InputWrapper><Input value="12"/></InputWrapper>
-            </TableRow>
-            </tbody>
-          </Table>
-        </PageWrapper>
-      </Constraint>
+        <Topbar onBack={this.handleOnBack} title="Create account" onSave={this.handleOnSave}/>
+        <Constraint width="1200" centered>
+          <PageWrapper>
+              {R.map((item) => (
+                <div key={item.exercice}>
+                <Space y={0}>
+                  <Title>{item.exercice}</Title>
+                </Space>
+                <Table>
+                  <tbody>
+                  <TableRow>
+                    <TableHeading>#</TableHeading>
+                    <TableHeading>Kg</TableHeading>
+                    <TableHeading>Reps</TableHeading>
+                  </TableRow>
+                  <TableRow>
+                    <TableData>{item.sets}</TableData>
+                    <TableData>{item.weight}</TableData>
+                    <InputWrapper><Input value={item.}/></InputWrapper>
+                  </TableRow>
+                  <TableRow>
+                    <TableData>2</TableData>
+                    <TableData>90</TableData>
+                    <InputWrapper><Input value="10"/></InputWrapper>
+                  </TableRow>
+                  <TableRow>
+                    <TableData>3</TableData>
+                    <TableData>80</TableData>
+                    <InputWrapper><Input placeholder="12"/></InputWrapper>
+                  </TableRow>
+                  </tbody>
+                </Table>
+              </div>
+              ), this.state.exercises)}
+            </PageWrapper>
+          </Constraint>
       </React.Fragment>
     )
   }

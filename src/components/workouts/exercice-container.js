@@ -215,7 +215,9 @@ class ExerciceContainer extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-
+    // Check if there is one exerices of that type in the workout, don't submit.
+    // Here we shall manipulate the data, on save.
+    // Later we can show example out put, UI.
     const exercisesRef = database.ref(`user01/workouts/${this.state.workout}`);
 
 		exercisesRef.push({

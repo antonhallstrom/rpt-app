@@ -46,19 +46,19 @@ class HomeContainer extends React.Component {
       <Topbar onSignOut={this.handleSignOut} />
         <Constraint width="1200" centered>
           <PageWrapper>
-            <Link to="workout/1">
+            <Link to="workout/wo1">
               <Card>
                 <Title>Workout 1</Title>
               </Card>
             </Link>
             <Space bottom={0}/>
-            <Link to="workout/2">
+            <Link to="workout/wo2">
               <Card>
                 <Title isCompleted>Workout 2</Title>
               </Card>
             </Link>
             <Space bottom={0}/>
-            <Link to="workout/3">
+            <Link to="workout/wo3">
               <Card>
                 <Title isCompleted>Workout 3</Title>
               </Card>
