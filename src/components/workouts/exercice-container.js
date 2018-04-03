@@ -198,8 +198,18 @@ class ExerciceContainer extends React.Component {
     this.props.history.push('/workouts')
   }
 
-  handleSubmit() {
+  handleSubmit(event) {
+    event.preventDefault()
 
+    const exercisesRef = database.ref('user01/workouts');
+
+		exercisesRef.push({
+			workout: this.state.workout,
+			exercice: this.state.exercice,
+			goal: this.state.goal,
+			sets: this.state.sets,
+			weight: this.state.weight,
+		});
   }
 
   render() {
