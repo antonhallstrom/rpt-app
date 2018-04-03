@@ -1,6 +1,7 @@
 import React from 'react'
 import Proptypes from 'prop-types'
 import styled from 'styled-components'
+import * as R from 'ramda'
 
 import { auth, database } from '../../config/firebase'
 
@@ -163,11 +164,11 @@ const decreaseOptions = [
     label: 'Decrease',
   },
   {
-    value: 5,
+    value: 0.05,
     label: '5 %',
   },
   {
-    value: 10,
+    value: 0.1,
     label: '10 %',
   },
 ]
@@ -218,15 +219,29 @@ class ExerciceContainer extends React.Component {
     // Check if there is one exerices of that type in the workout, don't submit.
     // Here we shall manipulate the data, on save.
     // Later we can show example out put, UI.
-    const exercisesRef = database.ref(`user01/workouts/${this.state.workout}`);
+    // decrease kinda false.
 
-		exercisesRef.push({
-			workout: this.state.workout,
-			exercice: this.state.exercice,
-			goal: this.state.goal,
-			sets: this.state.sets,
-			weight: this.state.weight,
-		});
+    const exercisesRef = database.ref(`user01/workouts/${this.state.workout}`)
+
+    const x = () => {
+      let temp = []
+      for (var i = 0; i < this.state.sets; i++) {
+        if (i === 0) {
+          temp = R.append({
+            set: i + 1,
+            weight: this.state.weight,
+            reps: this.state.goal,
+          }, temp)
+        }
+        temp = R.append({
+          set: i,
+          weight: this.state.weight - (this.state.decrease * this.state.weight),
+          reps: JSON.parse(this.state.goal) + 2
+        }, temp)
+    }
+      return temp
+    }
+    exercisesRef.push({ exercice: x() })
   }
 
   render() {

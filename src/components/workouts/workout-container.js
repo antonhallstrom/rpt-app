@@ -110,10 +110,10 @@ class WorkoutContainer extends React.Component {
         <Topbar onBack={this.handleOnBack} title="Create account" onSave={this.handleOnSave}/>
         <Constraint width="1200" centered>
           <PageWrapper>
-              {R.map((item) => (
-                <div key={item.exercice}>
+              {R.map(i => (
+                <div key={i.exercice}>
                 <Space y={0}>
-                  <Title>{item.exercice}</Title>
+                  <Title>{i.exercice}</Title>
                 </Space>
                 <Table>
                   <tbody>
@@ -122,16 +122,7 @@ class WorkoutContainer extends React.Component {
                     <TableHeading>Kg</TableHeading>
                     <TableHeading>Reps</TableHeading>
                   </TableRow>
-                  <TableRow>
-                    <TableData>{item.sets}</TableData>
-                    <TableData>{item.weight}</TableData>
-                    <InputWrapper><Input value={item.}/></InputWrapper>
-                  </TableRow>
-                  <TableRow>
-                    <TableData>2</TableData>
-                    <TableData>90</TableData>
-                    <InputWrapper><Input value="10"/></InputWrapper>
-                  </TableRow>
+
                   <TableRow>
                     <TableData>3</TableData>
                     <TableData>80</TableData>
