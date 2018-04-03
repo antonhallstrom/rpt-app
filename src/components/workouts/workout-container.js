@@ -88,7 +88,11 @@ class WorkoutContainer extends React.Component {
     var exercisesRef = database.ref(`user01/workouts/${this.props.match.params.id}`);
 
     exercisesRef.on('value', snapshot => {
-      this.setState({ exercises: [snapshot.val()] });
+      const snap = snapshot.val()
+      for (var key in snap) {
+        console.log(snap[key])
+      }
+      this.setState({ exercises: snapshot.val() });
     })
   }
 
@@ -104,13 +108,13 @@ class WorkoutContainer extends React.Component {
     if (!this.state.authenticated) {
       return <Spinner/>
     }
-
+    console.log(this.state.exercises)
     return (
       <React.Fragment>
         <Topbar onBack={this.handleOnBack} title="Create account" onSave={this.handleOnSave}/>
         <Constraint width="1200" centered>
           <PageWrapper>
-              {R.map(i => (
+              {/* {R.map(i => (
                 <div key={i.exercice}>
                 <Space y={0}>
                   <Title>{i.exercice}</Title>
@@ -131,7 +135,7 @@ class WorkoutContainer extends React.Component {
                   </tbody>
                 </Table>
               </div>
-              ), this.state.exercises)}
+              ), this.state.exercises.exercices)} */}
             </PageWrapper>
           </Constraint>
       </React.Fragment>

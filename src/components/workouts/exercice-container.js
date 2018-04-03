@@ -229,7 +229,7 @@ class ExerciceContainer extends React.Component {
       }
       exercice = R.append(set, exercice)
     }
-    return workoutRef.push({ exercice })
+    workoutRef.push({ name: this.state.exercice, exercice })
   }
 
   render() {
