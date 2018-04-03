@@ -70,39 +70,39 @@ const exerciceOptions = [
     label: 'Exercice',
   },
   {
-    value: 'squats',
+    value: 'Squats',
     label: 'Squats',
   },
   {
-    value: 'benchPress',
+    value: 'Bench Press',
     label: 'Bench Press',
   },
   {
-    value: 'deadlift',
+    value: 'Deadlift',
     label: 'Deadlift',
   },
   {
-    value: 'weightedChinUp',
+    value: 'Weighted Chin-Up',
     label: 'Weighted Chin-Up',
   },
   {
-    value: 'row',
+    value: 'Row',
     label: 'Row',
   },
   {
-    value: 'calves',
+    value: 'Calves',
     label: 'Calves',
   },
   {
-    value: 'bicepCurl',
+    value: 'Weighted Dip',
     label: 'Bicep Curl',
   },
   {
-    value: 'weightedDip',
+    value: 'Weighted Dip',
     label: 'Weighted Dip',
   },
   {
-    value: 'overheadPress',
+    value: 'Overhead Press',
     label: 'Overhead Press',
   },
 ]
@@ -157,6 +157,21 @@ const setOptions = [
   },
 ]
 
+const decreaseOptions = [
+  {
+    value: '',
+    label: 'Decrease',
+  },
+  {
+    value: 5,
+    label: '5 %',
+  },
+  {
+    value: 10,
+    label: '10 %',
+  },
+]
+
 class ExerciceContainer extends React.Component {
   constructor(props) {
     super(props)
@@ -201,7 +216,7 @@ class ExerciceContainer extends React.Component {
   handleSubmit(event) {
     event.preventDefault()
 
-    const exercisesRef = database.ref('user01/workouts');
+    const exercisesRef = database.ref(`user01/workouts/${this.state.workout}`);
 
 		exercisesRef.push({
 			workout: this.state.workout,
@@ -245,6 +260,13 @@ class ExerciceContainer extends React.Component {
               options={setOptions}
               onChange={this.handleChange}
               />
+            <Space y={0}/>
+            <Select
+              name="decrease"
+              value={this.state.decrease}
+              options={decreaseOptions}
+              onChange={this.handleChange}
+            />
             <Space y={0}/>
             <Wrapper>
               <InputWrapper>
