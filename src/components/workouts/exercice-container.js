@@ -164,12 +164,12 @@ const decreaseOptions = [
     label: 'Decrease',
   },
   {
-    value: 0.05,
-    label: '5 %',
-  },
-  {
     value: 0.1,
     label: '10 %',
+  },
+  {
+    value: 0.05,
+    label: '5 %',
   },
 ]
 
@@ -216,26 +216,20 @@ class ExerciceContainer extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    // Check if there is one exerices of that type in the workout, don't submit.
-    // Here we shall manipulate the data, on save.
-    // Later we can show example out put, UI.
-    // decrease kinda false.
+    const workoutRef = database.ref(`user01/workouts/${this.state.workout}`)
+    let exercice = []
+    let count = 0
 
-    const exercisesRef = database.ref(`user01/workouts/${this.state.workout}`)
-
-    const x = () => {
-      let temp = []
-
-      for (var i = 0; i < this.state.sets; i++) {
-        temp = R.append({
-          set: i,
-          weight: this.state.weight - ((this.state.decrease * i) * this.state.weight),
-          reps: JSON.parse(this.state.goal) + i++
-        }, temp)
+    for (let i = 0; i < this.state.sets; i++) {
+      count = i !== 0 && count + 2
+      const set = {
+        set: i + 1,
+        weight: this.state.weight - ((this.state.decrease * i) * this.state.weight),
+        reps: count + JSON.parse(this.state.goal)
+      }
+      exercice = R.append(set, exercice)
     }
-      return temp
-    }
-    exercisesRef.push({ exercice: x() })
+    return workoutRef.push({ exercice })
   }
 
   render() {
