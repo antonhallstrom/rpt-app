@@ -234,7 +234,7 @@ class ExerciceContainer extends React.Component {
   render() {
     return (
       <div>
-        <Topbar onBack={this.handleBack} onSave={this.handleSubmit}/>
+        <Topbar onBack={this.handleBack} title="Create Exercice" onSave={this.handleSubmit}/>
         <Constraint width="1200" centered>
           <PageWrapper>
             <Select

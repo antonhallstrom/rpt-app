@@ -98,7 +98,7 @@ class WorkoutContainer extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Topbar onBack={this.handleOnBack} title="Create account" onSave={this.handleOnSave}/>
+        <Topbar onBack={this.handleOnBack} onSave={this.handleOnSave}/>
         <Constraint width="1200" centered>
           <PageWrapper>
             {R.map(i => (
