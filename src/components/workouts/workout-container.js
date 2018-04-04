@@ -80,17 +80,17 @@ class WorkoutContainer extends React.Component {
   }
 
   componentDidMount() {
-    auth.onAuthStateChanged(auth => {
-      if (auth) {
-        this.setState({ authenticated: auth });
+    auth.onAuthStateChanged(authenticated => {
+      if (authenticated) {
+        this.setState({ authenticated })
       }
     })
-    var exercisesRef = database.ref(`user01/workouts/${this.props.match.params.id}`);
+    var exercisesRef = database.ref(`user01/workouts/${this.props.match.params.id}`)
 
     exercisesRef.on('value', snapshot => {
       const obj = snapshot.val()
       for (var keys in obj) {
-        this.setState({ exercises: R.append(obj[keys], this.state.exercises) });
+        this.setState(prevState => { return { exercises: R.append(obj[keys], prevState.exercises) } })
       }
     })
   }
@@ -107,36 +107,41 @@ class WorkoutContainer extends React.Component {
     if (!this.state.authenticated) {
       return <Spinner/>
     }
-    console.log(this.state.exercises)
+
     return (
       <React.Fragment>
         <Topbar onBack={this.handleOnBack} title="Create account" onSave={this.handleOnSave}/>
         <Constraint width="1200" centered>
           <PageWrapper>
-              {/* {R.map(i => (
-                <div key={i.exercice}>
+            {R.map(i => (
+              <div key={i.name}>
                 <Space y={0}>
-                  <Title>{i.exercice}</Title>
+                  <Title>{i.name}</Title>
                 </Space>
                 <Table>
                   <tbody>
-                  <TableRow>
-                    <TableHeading>#</TableHeading>
-                    <TableHeading>Kg</TableHeading>
-                    <TableHeading>Reps</TableHeading>
-                  </TableRow>
-
-                  <TableRow>
-                    <TableData>3</TableData>
-                    <TableData>80</TableData>
-                    <InputWrapper><Input placeholder="12"/></InputWrapper>
-                  </TableRow>
+                    <TableRow>
+                      <TableHeading>#</TableHeading>
+                      <TableHeading>Kg</TableHeading>
+                      <TableHeading>Reps</TableHeading>
+                    </TableRow>
+                    {R.map(j => (
+                      <TableRow key={j.weight}>
+                        <TableData>{j.set}</TableData>
+                        <TableData>{j.weight}</TableData>
+                        <InputWrapper>
+                          <Input
+                            value={j.reps}
+                            placeholder={j.reps}/>
+                        </InputWrapper>
+                      </TableRow>
+                      ), i.exercice)}
                   </tbody>
                 </Table>
               </div>
-              ), this.state.exercises.exercices)} */}
-            </PageWrapper>
-          </Constraint>
+            ), this.state.exercises)}
+          </PageWrapper>
+        </Constraint>
       </React.Fragment>
     )
   }
@@ -145,6 +150,7 @@ class WorkoutContainer extends React.Component {
 WorkoutContainer.propTypes = {
   history: Proptypes.object,
   location: Proptypes.object,
+  match: Proptypes.object,
   onSignOut: Proptypes.func,
 }
 
