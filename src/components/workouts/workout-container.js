@@ -72,7 +72,7 @@ class WorkoutContainer extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      exercises: null,
+      exercises: [],
       authenticated: null
     }
     this.handleOnSave = this.handleOnSave.bind(this)
@@ -88,11 +88,10 @@ class WorkoutContainer extends React.Component {
     var exercisesRef = database.ref(`user01/workouts/${this.props.match.params.id}`);
 
     exercisesRef.on('value', snapshot => {
-      const snap = snapshot.val()
-      for (var key in snap) {
-        console.log(snap[key])
+      const obj = snapshot.val()
+      for (var keys in obj) {
+        this.setState({ exercises: R.append(obj[keys], this.state.exercises) });
       }
-      this.setState({ exercises: snapshot.val() });
     })
   }
 
