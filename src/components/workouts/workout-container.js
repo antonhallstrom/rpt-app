@@ -1,7 +1,6 @@
 import React from 'react'
 import Proptypes from 'prop-types'
 import * as R from 'ramda'
-import { v4 as generateUuid } from 'uuid'
 import { database } from '../../config/firebase'
 import { Constraint, PageWrapper } from '../common/grid'
 import styled from 'styled-components'
@@ -72,11 +71,10 @@ const Input = styled.input`
 class WorkoutContainer extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      exercises: [],
-    }
-    this.handleOnSave = this.handleOnSave.bind(this)
-    this.handleOnBack = this.handleOnBack.bind(this)
+    this.state = { exercises: [] }
+
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleRedirect = this.handleRedirect.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
 
@@ -84,11 +82,13 @@ class WorkoutContainer extends React.Component {
     var exercisesRef = database.ref(`user01/workouts/${this.props.match.params.id}`)
 
     exercisesRef.on('value', snapshot => {
-      this.setState({ exercises: R.values(snapshot.val()) })
+      const exercices = R.filter(R.propEq('completed', false), R.values(snapshot.val()))
+
+      this.setState({ exercices })
     })
   }
 
-  handleOnBack() {
+  handleRedirect() {
     this.props.history.push('/workouts')
   }
 
@@ -98,15 +98,14 @@ class WorkoutContainer extends React.Component {
     })
 	}
 
-  handleOnSave() {
+  handleSubmit() {
 
   }
 
   render() {
-    console.log(this.state)
     return (
       <React.Fragment>
-        <Topbar onBack={this.handleOnBack} onSave={this.handleOnSave}/>
+        <Topbar onBack={this.handleRedirect} onSave={this.handleSubmit}/>
         <Constraint width="1200" centered>
           <PageWrapper>
             {R.map(i => (
@@ -149,7 +148,6 @@ WorkoutContainer.propTypes = {
   history: Proptypes.object,
   location: Proptypes.object,
   match: Proptypes.object,
-  onSignOut: Proptypes.func,
 }
 
 

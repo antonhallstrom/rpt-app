@@ -2,7 +2,7 @@ import React from 'react'
 import Proptypes from 'prop-types'
 import styled from 'styled-components'
 import * as R from 'ramda'
-import { auth, database } from '../../config/firebase'
+import { database } from '../../config/firebase'
 
 import Topbar from '../topbar/topbar'
 import { Constraint, PageWrapper } from '../common/grid'
@@ -177,7 +177,6 @@ class ExerciceContainer extends React.Component {
     super(props)
     this.state = {
       exercises: null,
-      currentUser: null,
       workout: '',
       exercice: '',
       goal: '',
@@ -191,14 +190,12 @@ class ExerciceContainer extends React.Component {
   }
 
   componentDidMount() {
-    auth.onAuthStateChanged(currentUser => {
-      this.setState({ currentUser });
+    var exercisesRef = database.ref('user01')
 
-    })
-    var exercisesRef = database.ref('user01');
-
-    exercisesRef.on('value', snapshot => {
-      this.setState({ exercises: snapshot.val() });
+      exercisesRef.on('value', snapshot => {
+        if (snapshot) {
+        this.setState({ exercises: snapshot.val() })
+      }
     })
   }
 
@@ -212,7 +209,7 @@ class ExerciceContainer extends React.Component {
   handleBack() {
     this.props.history.push('/workouts')
   }
-
+  // add option for body weight
   handleSubmit(event) {
     event.preventDefault()
     const workoutRef = database.ref(`user01/workouts/${this.state.workout}`)
@@ -228,7 +225,8 @@ class ExerciceContainer extends React.Component {
       }
       exercice = R.append(set, exercice)
     }
-    workoutRef.push({  name: this.state.exercice, exercice })
+
+    workoutRef.push({ name: this.state.exercice, exercice, completed: false })
   }
 
   render() {
