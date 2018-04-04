@@ -14,5 +14,6 @@ export default {
     brown: '#323330',
     yellow: '#EFDA5B',
     green: 'mediumspringgreen',
+    purple: 'mediumpurple',
   }
 }

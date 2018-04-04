@@ -59,6 +59,7 @@ const Input = styled.input`
   border: none;
   text-align: center;
   width: 100%;
+  color: ${props => props.theme.colors.purple};
   caret-color: ${props => props.theme.colors.black};
   &:focus {
     outline: none;
@@ -73,10 +74,10 @@ class WorkoutContainer extends React.Component {
     super(props)
     this.state = {
       exercises: [],
-      new: [],
     }
     this.handleOnSave = this.handleOnSave.bind(this)
     this.handleOnBack = this.handleOnBack.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
   componentDidMount() {
@@ -91,11 +92,18 @@ class WorkoutContainer extends React.Component {
     this.props.history.push('/workouts')
   }
 
+	handleChange(event) {
+		this.setState({
+			[event.target.name]: event.target.value
+    })
+	}
+
   handleOnSave() {
 
   }
 
   render() {
+    console.log(this.state)
     return (
       <React.Fragment>
         <Topbar onBack={this.handleOnBack} onSave={this.handleOnSave}/>
@@ -114,13 +122,15 @@ class WorkoutContainer extends React.Component {
                       <TableHeading>Reps</TableHeading>
                     </TableRow>
                     {R.map(j => (
-                      <TableRow key={generateUuid()}>
+                      <TableRow key={j.set}>
                         <TableData>{j.set}</TableData>
                         <TableData>{j.weight}</TableData>
                         <InputWrapper>
                           <Input
-                            value={j.reps}
-                            placeholder={j.reps}/>
+                            name={`set${j.set}`}
+                            value={this.state[`set${j.set}`] || ''}
+                            placeholder={j.reps}
+                            onChange={this.handleChange}/>
                         </InputWrapper>
                       </TableRow>
                       ), i.exercice)}
