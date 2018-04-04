@@ -1,6 +1,7 @@
 import React from 'react'
 import Proptypes from 'prop-types'
 import * as R from 'ramda'
+import { v4 as generateUuid } from 'uuid'
 import { auth, database } from '../../config/firebase'
 import { Constraint, PageWrapper } from '../common/grid'
 import Spinner from '../spinner'
@@ -73,23 +74,18 @@ class WorkoutContainer extends React.Component {
     super(props)
     this.state = {
       exercises: [],
-      authenticated: null
     }
     this.handleOnSave = this.handleOnSave.bind(this)
     this.handleOnBack = this.handleOnBack.bind(this)
   }
 
   componentDidMount() {
-    auth.onAuthStateChanged(authenticated => {
-      if (authenticated) {
-        this.setState({ authenticated })
-      }
-    })
     var exercisesRef = database.ref(`user01/workouts/${this.props.match.params.id}`)
 
     exercisesRef.on('value', snapshot => {
       const obj = snapshot.val()
       for (var keys in obj) {
+        console.log(obj[keys])
         this.setState(prevState => { return { exercises: R.append(obj[keys], prevState.exercises) } })
       }
     })
@@ -104,10 +100,6 @@ class WorkoutContainer extends React.Component {
   }
 
   render() {
-    if (!this.state.authenticated) {
-      return <Spinner/>
-    }
-
     return (
       <React.Fragment>
         <Topbar onBack={this.handleOnBack} title="Create account" onSave={this.handleOnSave}/>
@@ -126,7 +118,7 @@ class WorkoutContainer extends React.Component {
                       <TableHeading>Reps</TableHeading>
                     </TableRow>
                     {R.map(j => (
-                      <TableRow key={j.weight}>
+                      <TableRow key={generateUuid()}>
                         <TableData>{j.set}</TableData>
                         <TableData>{j.weight}</TableData>
                         <InputWrapper>

@@ -2,7 +2,6 @@ import React from 'react'
 import Proptypes from 'prop-types'
 import styled from 'styled-components'
 import * as R from 'ramda'
-
 import { auth, database } from '../../config/firebase'
 
 import Topbar from '../topbar/topbar'
@@ -224,12 +223,12 @@ class ExerciceContainer extends React.Component {
       count = i !== 0 && count + 2
       const set = {
         set: i + 1,
-        weight: this.state.weight - ((this.state.decrease * i) * this.state.weight),
+        weight: Math.round(this.state.weight - ((this.state.decrease * i) * this.state.weight)),
         reps: count + JSON.parse(this.state.goal)
       }
       exercice = R.append(set, exercice)
     }
-    workoutRef.push({ name: this.state.exercice, exercice })
+    workoutRef.push({  name: this.state.exercice, exercice })
   }
 
   render() {
