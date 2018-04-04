@@ -2,9 +2,8 @@ import React from 'react'
 import Proptypes from 'prop-types'
 import * as R from 'ramda'
 import { v4 as generateUuid } from 'uuid'
-import { auth, database } from '../../config/firebase'
+import { database } from '../../config/firebase'
 import { Constraint, PageWrapper } from '../common/grid'
-import Spinner from '../spinner'
 import styled from 'styled-components'
 import Space from '../common/space'
 import Topbar from '../topbar/topbar'
@@ -74,6 +73,7 @@ class WorkoutContainer extends React.Component {
     super(props)
     this.state = {
       exercises: [],
+      new: [],
     }
     this.handleOnSave = this.handleOnSave.bind(this)
     this.handleOnBack = this.handleOnBack.bind(this)
@@ -83,11 +83,7 @@ class WorkoutContainer extends React.Component {
     var exercisesRef = database.ref(`user01/workouts/${this.props.match.params.id}`)
 
     exercisesRef.on('value', snapshot => {
-      const obj = snapshot.val()
-      for (var keys in obj) {
-        console.log(obj[keys])
-        this.setState(prevState => { return { exercises: R.append(obj[keys], prevState.exercises) } })
-      }
+      this.setState({ exercises: R.values(snapshot.val()) })
     })
   }
 
