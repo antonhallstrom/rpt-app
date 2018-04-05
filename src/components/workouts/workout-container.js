@@ -95,28 +95,27 @@ class WorkoutContainer extends React.Component {
   }
 
 	handleChange(event) {
-    // search for the type and update the rep.
-    // lensPath
-    var print = x => console.log(x)
-    const lens = R.lensPath(['exercice'])
-    console.log('map', R.map(R.view(R.lensPath(['exercice'])))(this.state.exercises))
-    const path = R.map(R.view(lens))(this.state.exercises)
-    console.log('theway', path[0][0])
-    mapIndexed((k, i) => console.log(k[i]))(path)
-    console.log('print', R.find(R.propEq('type', event.target.name))(path))
-    // console.log(R.find(R.propEq('type', [event.target.name]))(this.state.exercises))
-
 		this.setState({
 			[event.target.name]: event.target.value
     })
 	}
 
   handleSubmit() {
-    console.log(this.state)
+  // Check all the rep values, is 1 over the set rep values.
+  // If they are over, then to a increase on the initial weight load, by selected decrease.
+  // If a value is "" then that means the values is unchanged. Return the same value. It need to be set. Grab the data from the unmodified object.
+  // If nothing is unchanged, mark as completed: true, and generate a new exercices based on the data.
+  // If only some sets are increases create a new exercices with that data, and mark as complete.
+  var ref = database.ref('user01')
+
+  // this work, one needs the refrence to the key to update the state.
+  database.ref('user01').child('workouts').child('-L9GfWPMLV1Wk27ETi_L').update({ completed: true })
+
+
   }
 
   render() {
-
+    console.log(this.state)
     return (
       <React.Fragment>
         <Topbar onBack={this.handleRedirect} onSave={this.handleSubmit}/>
@@ -140,8 +139,9 @@ class WorkoutContainer extends React.Component {
                         <TableData>{j.weight}</TableData>
                         <InputWrapper>
                           <Input
+                            type="number"
                             name={j.type}
-                            value={j.reps}
+                            value={this.state[j.type]}
                             placeholder={j.reps}
                             onChange={this.handleChange}/>
                         </InputWrapper>
