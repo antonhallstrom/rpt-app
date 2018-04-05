@@ -68,6 +68,8 @@ const Input = styled.input`
   }
 `
 
+const mapIndexed = R.addIndex(R.map)
+
 class WorkoutContainer extends React.Component {
   constructor(props) {
     super(props)
@@ -82,9 +84,9 @@ class WorkoutContainer extends React.Component {
     var exercisesRef = database.ref(`user01/workouts/${this.props.match.params.id}`)
 
     exercisesRef.on('value', snapshot => {
-      const exercices = R.filter(R.propEq('completed', false), R.values(snapshot.val()))
+      const exercises = R.filter(R.propEq('completed', false), R.values(snapshot.val()))
 
-      this.setState({ exercices })
+      this.setState({ exercises })
     })
   }
 
@@ -93,16 +95,28 @@ class WorkoutContainer extends React.Component {
   }
 
 	handleChange(event) {
+    // search for the type and update the rep.
+    // lensPath
+    var print = x => console.log(x)
+    const lens = R.lensPath(['exercice'])
+    console.log('map', R.map(R.view(R.lensPath(['exercice'])))(this.state.exercises))
+    const path = R.map(R.view(lens))(this.state.exercises)
+    console.log('theway', path[0][0])
+    mapIndexed((k, i) => console.log(k[i]))(path)
+    console.log('print', R.find(R.propEq('type', event.target.name))(path))
+    // console.log(R.find(R.propEq('type', [event.target.name]))(this.state.exercises))
+
 		this.setState({
 			[event.target.name]: event.target.value
     })
 	}
 
   handleSubmit() {
-
+    console.log(this.state)
   }
 
   render() {
+
     return (
       <React.Fragment>
         <Topbar onBack={this.handleRedirect} onSave={this.handleSubmit}/>
@@ -120,14 +134,14 @@ class WorkoutContainer extends React.Component {
                       <TableHeading>Kg</TableHeading>
                       <TableHeading>Reps</TableHeading>
                     </TableRow>
-                    {R.map(j => (
+                    {mapIndexed((j) => (
                       <TableRow key={j.set}>
                         <TableData>{j.set}</TableData>
                         <TableData>{j.weight}</TableData>
                         <InputWrapper>
                           <Input
-                            name={`set${j.set}`}
-                            value={this.state[`set${j.set}`] || ''}
+                            name={j.type}
+                            value={j.reps}
                             placeholder={j.reps}
                             onChange={this.handleChange}/>
                         </InputWrapper>

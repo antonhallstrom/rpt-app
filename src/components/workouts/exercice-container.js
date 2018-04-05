@@ -210,6 +210,9 @@ class ExerciceContainer extends React.Component {
     this.props.history.push('/workouts')
   }
   // add option for body weight
+  // timestamp to show date
+  // how to calculate the new reps, and decrease, becuase one needs to compare to old vs the new.
+
   handleSubmit(event) {
     event.preventDefault()
     const workoutRef = database.ref(`user01/workouts/${this.state.workout}`)
@@ -220,6 +223,7 @@ class ExerciceContainer extends React.Component {
       count = i !== 0 && count + 2
       const set = {
         set: i + 1,
+        type: `${this.state.exercice.split(' ').join('')}${i}`,
         weight: Math.round(this.state.weight - ((this.state.decrease * i) * this.state.weight)),
         reps: count + JSON.parse(this.state.goal)
       }
