@@ -182,6 +182,7 @@ class ExerciceContainer extends React.Component {
       goal: '',
       sets: '',
       weight: '',
+      decrease: '',
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -230,7 +231,14 @@ class ExerciceContainer extends React.Component {
       exercice = R.append(set, exercice)
     }
 
-    workoutRef.push({ name: this.state.exercice, exercice, completed: false })
+    workoutRef.push({
+      name: this.state.exercice,
+      completed: false,
+      weight: this.state.weight,
+      goal: this.state.goal,
+      decrease: this.state.decrease,
+      exercice,
+    })
   }
 
   render() {

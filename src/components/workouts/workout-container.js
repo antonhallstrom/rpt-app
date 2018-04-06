@@ -81,10 +81,9 @@ class WorkoutContainer extends React.Component {
   }
 
   componentDidMount() {
-    var exercisesRef = database.ref(`user01/workouts/${this.props.match.params.id}`)
+    const exercisesRef = database.ref(`user01/workouts/${this.props.match.params.id}`)
 
     exercisesRef.on('value', snapshot => {
-      console.log(snapshot.val())
       const exercises = R.filter(R.propEq('completed', false), R.values(snapshot.val()))
 
       this.setState({ exercises })
@@ -110,14 +109,17 @@ class WorkoutContainer extends React.Component {
   // If only some sets are increases create a new exercices with that data, and mark as complete.
   // this work, one needs the refrence to the key to update the state. Else one can.
 
-    exerciceRef.on('value', snapshot => {
-      const updates = {};
+  console.log(this.state)
 
-      snapshot.forEach((childSnapshot) => {
-        updates[childSnapshot.key + '/completed'] = true
-        exerciceRef.update(updates)
-      })
-    })
+    // To mark the exercice as completed.
+    // exerciceRef.on('value', snapshot => {
+    //   const updates = {};
+
+    //   snapshot.forEach((childSnapshot) => {
+    //     updates[childSnapshot.key + '/completed'] = true
+    //     exerciceRef.update(updates)
+    //   })
+    // })
   }
 
   render() {
