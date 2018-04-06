@@ -73,7 +73,7 @@ const mapIndexed = R.addIndex(R.map)
 class WorkoutContainer extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { exercises: [] }
+    this.state = { exercises: [], repChanges: [] }
 
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleRedirect = this.handleRedirect.bind(this)
@@ -127,12 +127,16 @@ class WorkoutContainer extends React.Component {
 
   for (var i = 0; i < this.state.exercises.length; i++) {
      for (var j = 0; j < this.state.exercises[i].sets; j++) {
-      const current = this.state.exercises[i]
+      const currentExercice = this.state.exercises[i]
+      const currentSet = currentExercice.exercice[j]
+
+      const isRepChanged = parseInt(this.state[`${currentSet.type}`]) !== currentSet.reps && Boolean(this.state[`${currentSet.type}`])
+
       count = j !== 0 && count + 2
       const set = {
         set: j + 1,
-        weight: Math.round(current.weight - ((current.decrease * j) * current.weight)),
-        reps: count + JSON.parse(current.goal)
+        weight: Math.round(currentExercice.weight - ((currentExercice.decrease * j) * currentExercice.weight)),
+        reps: isRepChanged ? parseInt(this.state[`${currentSet.type}`]) : count + JSON.parse(currentExercice.goal)
       }
       exercice = R.append(set, exercice)
       console.log(exercice)
