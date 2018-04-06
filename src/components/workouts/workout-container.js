@@ -84,6 +84,7 @@ class WorkoutContainer extends React.Component {
     var exercisesRef = database.ref(`user01/workouts/${this.props.match.params.id}`)
 
     exercisesRef.on('value', snapshot => {
+      console.log(snapshot.val())
       const exercises = R.filter(R.propEq('completed', false), R.values(snapshot.val()))
 
       this.setState({ exercises })
@@ -101,21 +102,25 @@ class WorkoutContainer extends React.Component {
 	}
 
   handleSubmit() {
+  const exerciceRef = database.ref(`user01/workouts/${this.props.match.params.id}`)
   // Check all the rep values, is 1 over the set rep values.
   // If they are over, then to a increase on the initial weight load, by selected decrease.
   // If a value is "" then that means the values is unchanged. Return the same value. It need to be set. Grab the data from the unmodified object.
   // If nothing is unchanged, mark as completed: true, and generate a new exercices based on the data.
   // If only some sets are increases create a new exercices with that data, and mark as complete.
-  var ref = database.ref('user01')
+  // this work, one needs the refrence to the key to update the state. Else one can.
 
-  // this work, one needs the refrence to the key to update the state.
-  database.ref('user01').child('workouts').child('-L9GfWPMLV1Wk27ETi_L').update({ completed: true })
+    exerciceRef.on('value', snapshot => {
+      const updates = {};
 
-
+      snapshot.forEach((childSnapshot) => {
+        updates[childSnapshot.key + '/completed'] = true
+        exerciceRef.update(updates)
+      })
+    })
   }
 
   render() {
-    console.log(this.state)
     return (
       <React.Fragment>
         <Topbar onBack={this.handleRedirect} onSave={this.handleSubmit}/>
