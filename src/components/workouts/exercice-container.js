@@ -236,6 +236,7 @@ class ExerciceContainer extends React.Component {
       completed: false,
       weight: this.state.weight,
       goal: this.state.goal,
+      sets: this.state.sets,
       decrease: this.state.decrease,
       exercice,
     })

@@ -108,8 +108,40 @@ class WorkoutContainer extends React.Component {
   // If nothing is unchanged, mark as completed: true, and generate a new exercices based on the data.
   // If only some sets are increases create a new exercices with that data, and mark as complete.
   // this work, one needs the refrence to the key to update the state. Else one can.
+  //  map all exercices, compare the new rep vs the old rep. If 3 reps is greater, then increase.
+  var exercice = []
+  let count = 0
 
-  console.log(this.state)
+  // for (let i = 0; i < this.state.sets; i++) {
+  //   count = i !== 0 && count + 2
+  //   const set = {
+  //     set: i + 1,
+  //     type: `${this.state.exercice.split(' ').join('')}${i}`,
+  //     weight: Math.round(this.state.weight - ((this.state.decrease * i) * this.state.weight)),
+  //     reps: count + JSON.parse(this.state.goal)
+  //   }
+  //   exercice = R.append(set, exercice)
+  // }
+
+  // one cna overide it after one has set the initial.
+
+  for (var i = 0; i < this.state.exercises.length; i++) {
+     for (var j = 0; j < this.state.exercises[i].sets; j++) {
+      const current = this.state.exercises[i]
+      count = j !== 0 && count + 2
+      const set = {
+        set: j + 1,
+        weight: Math.round(current.weight - ((current.decrease * j) * current.weight)),
+        reps: count + JSON.parse(current.goal)
+      }
+      exercice = R.append(set, exercice)
+      console.log(exercice)
+   }
+  }
+
+    // if one knows what the goal is, then one does not need to grab the data from within, only to create a new.
+
+    // create a new exercice for update.
 
     // To mark the exercice as completed.
     // exerciceRef.on('value', snapshot => {
