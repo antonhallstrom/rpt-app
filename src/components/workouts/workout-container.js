@@ -115,11 +115,10 @@ class WorkoutContainer extends React.Component {
       const isRepChanged = parseInt(this.state[`${currentSet.type}`]) !== currentSet.reps && Boolean(this.state[`${currentSet.type}`])
       const isEligibleForIncrease = parseInt(this.state[`${currentSet.type}`]) > currentSet.reps && Boolean(this.state[`${currentSet.type}`])
       count = j !== 0 && count + 2
-      increaseCount = isEligibleForIncrease && increaseCount + 1
 
       const set = {
         set: j + 1,
-        increaseCount,
+        increase: isEligibleForIncrease,
         weight: Math.round(currentExercice.weight - ((currentExercice.decrease * j) * currentExercice.weight)),
         reps: isRepChanged ? parseInt(this.state[`${currentSet.type}`]) : count + JSON.parse(currentExercice.goal)
       }
@@ -137,21 +136,24 @@ class WorkoutContainer extends React.Component {
 
   for (var k = 0; k < Object.keys(exercice).length; k++) {
     for (var h = exercice[k].length -1; h > -1; h--) {
-      const isIncrease = exercice[k][h]
-      console.log(isIncrease)
+      const isIncrease = R.all(R.propEq('increase', true), exercice[k])
+      if (isIncrease) {
+        console.log(exercice[k][h])
+        exercice[k][h].weight = exercice[k][h].weight * 1.05
+      }
       // const exerciceSets = exercice
       // console.log(currentExer)
       // increaseCount ===
     }
   }
 
+  console.log(exercice)
+
   // check if eligible for an increase
   // for (var k = 0; k < this.state.exercises[i].exercice.length; k++) {
   //   const isEligibleForIncrease = parseInt(this.state[`${currentSet.type}`]) > currentSet.reps && Boolean(this.state[`${currentSet.type}`])
   //   console.log(isEligibleForIncrease)
   // }
-  console.log('state', this.state)
-  console.log('obj', exercice)
 
     // To mark the exercice as completed.
     // exerciceRef.on('value', snapshot => {
