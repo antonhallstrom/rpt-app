@@ -102,34 +102,15 @@ class WorkoutContainer extends React.Component {
 
   handleSubmit() {
   const exerciceRef = database.ref(`user01/workouts/${this.props.match.params.id}`)
-  // Check all the rep values, is 1 over the set rep values.
-  // If they are over, then to a increase on the initial weight load, by selected decrease.
-  // If a value is "" then that means the values is unchanged. Return the same value. It need to be set. Grab the data from the unmodified object.
-  // If nothing is unchanged, mark as completed: true, and generate a new exercices based on the data.
-  // If only some sets are increases create a new exercices with that data, and mark as complete.
-  // this work, one needs the refrence to the key to update the state. Else one can.
-  //  map all exercices, compare the new rep vs the old rep. If 3 reps is greater, then increase.
-  var exercice = []
+
+  var exercice = {}
   let count = 0
 
-  // for (let i = 0; i < this.state.sets; i++) {
-  //   count = i !== 0 && count + 2
-  //   const set = {
-  //     set: i + 1,
-  //     type: `${this.state.exercice.split(' ').join('')}${i}`,
-  //     weight: Math.round(this.state.weight - ((this.state.decrease * i) * this.state.weight)),
-  //     reps: count + JSON.parse(this.state.goal)
-  //   }
-  //   exercice = R.append(set, exercice)
-  // }
-
-  // one cna overide it after one has set the initial.
-
   for (var i = 0; i < this.state.exercises.length; i++) {
+     exercice[i] = []
      for (var j = 0; j < this.state.exercises[i].sets; j++) {
       const currentExercice = this.state.exercises[i]
       const currentSet = currentExercice.exercice[j]
-
       const isRepChanged = parseInt(this.state[`${currentSet.type}`]) !== currentSet.reps && Boolean(this.state[`${currentSet.type}`])
 
       count = j !== 0 && count + 2
@@ -138,14 +119,22 @@ class WorkoutContainer extends React.Component {
         weight: Math.round(currentExercice.weight - ((currentExercice.decrease * j) * currentExercice.weight)),
         reps: isRepChanged ? parseInt(this.state[`${currentSet.type}`]) : count + JSON.parse(currentExercice.goal)
       }
-      exercice = R.append(set, exercice)
-      console.log(exercice)
+      exercice[i] = exercice[i].concat(set)
    }
+    // exerciceRef.push({
+    //   completed: true,
+    //   cursorId: 123,
+    //   exercice: exercice[i]
+    // })
   }
 
-    // if one knows what the goal is, then one does not need to grab the data from within, only to create a new.
+  // check if eligible for an increase
+  // for (var k = 0; k < this.state.exercises[i].exercice.length; k++) {
+  //   const isEligibleForIncrease = parseInt(this.state[`${currentSet.type}`]) > currentSet.reps && Boolean(this.state[`${currentSet.type}`])
+  //   console.log(isEligibleForIncrease)
+  // }
 
-    // create a new exercice for update.
+  console.log('obj', exercice)
 
     // To mark the exercice as completed.
     // exerciceRef.on('value', snapshot => {
