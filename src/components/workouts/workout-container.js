@@ -104,16 +104,8 @@ class WorkoutContainer extends React.Component {
   const exerciceRef = database.ref(`user01/workouts/${this.props.match.params.id}`)
   const exercice = {}
   let count = 0
-
-  exerciceRef.on('value', snapshot => {
-    const updates = {};
-
-    snapshot.forEach((childSnapshot) => {
-      updates[childSnapshot.key + '/completed'] = true
-      exerciceRef.update(updates)
-    })
-  })
-
+  const updates = {}
+  const newExerciceKey = exerciceRef.push().key
 
   for (let i = 0; i < this.state.exercises.length; i++) {
     exercice[i] = []
@@ -144,15 +136,29 @@ class WorkoutContainer extends React.Component {
         exercice[k][h].reps = count + parseInt(exercice[k][h].goal)
       }
     }
-    exerciceRef.push({
+
+    updates[newExerciceKey] = {
+      key: newExerciceKey,
       name: this.state.exercises[k].name,
       goal: this.state.exercises[k].goal,
       sets: this.state.exercises[k].sets,
       weight: this.state.exercises[k].weight,
       decrease: this.state.exercises[k].decrease,
       completed: false,
-      cursorId: 123,
       exercice: exercice[k]
+    }
+    exerciceRef.update(updates)
+
+    exerciceRef.on('value', snapshot => {
+      const updates = {}
+
+     snapshot.forEach((childSnapshot) => {
+       updates[childSnapshot.key + '/completed'] = true
+
+       if (childSnapshot.key !== newExerciceKey) {
+        exerciceRef.update(updates)
+       }
+     })
     })
   }
   }
