@@ -217,6 +217,8 @@ class ExerciceContainer extends React.Component {
   handleSubmit(event) {
     event.preventDefault()
     const workoutRef = database.ref(`user01/workouts/${this.state.workout}`)
+    const newExerciceKey = workoutRef.push().key;
+    const updates = {}
     let exercice = []
     let count = 0
 
@@ -231,7 +233,8 @@ class ExerciceContainer extends React.Component {
       exercice = R.append(set, exercice)
     }
 
-    workoutRef.push({
+    updates[newExerciceKey] = {
+      key: newExerciceKey,
       name: this.state.exercice,
       completed: false,
       weight: this.state.weight,
@@ -239,7 +242,8 @@ class ExerciceContainer extends React.Component {
       sets: this.state.sets,
       decrease: this.state.decrease,
       exercice,
-    })
+    }
+    workoutRef.update(updates)
   }
 
   render() {

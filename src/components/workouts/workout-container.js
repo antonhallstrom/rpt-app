@@ -82,10 +82,10 @@ class WorkoutContainer extends React.Component {
 
   componentDidMount() {
     const exercisesRef = database.ref(`user01/workouts/${this.props.match.params.id}`)
-
+    // Object.keys(obj2)[0] remove r.values then map to open
     exercisesRef.on('value', snapshot => {
       const exercises = R.filter(R.propEq('completed', false), R.values(snapshot.val()))
-
+      console.log(snapshot.val())
       this.setState({ exercises })
     })
   }
@@ -102,9 +102,18 @@ class WorkoutContainer extends React.Component {
 
   handleSubmit() {
   const exerciceRef = database.ref(`user01/workouts/${this.props.match.params.id}`)
-
   const exercice = {}
   let count = 0
+
+  exerciceRef.on('value', snapshot => {
+    const updates = {};
+
+    snapshot.forEach((childSnapshot) => {
+      updates[childSnapshot.key + '/completed'] = true
+      exerciceRef.update(updates)
+    })
+  })
+
 
   for (let i = 0; i < this.state.exercises.length; i++) {
     exercice[i] = []
