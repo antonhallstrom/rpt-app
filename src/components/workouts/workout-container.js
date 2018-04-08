@@ -118,8 +118,9 @@ class WorkoutContainer extends React.Component {
     const set = {
       set: j + 1,
       increase: isEligibleForIncrease,
+      goal: currentExercice.goal,
       weight: Math.round(currentExercice.weight - ((currentExercice.decrease * j) * currentExercice.weight)),
-      reps: isRepChanged ? parseInt(this.state[`${currentSet.type}`]) : count + JSON.parse(currentExercice.goal)
+      reps: isRepChanged ? parseInt(this.state[`${currentSet.type}`]) : count + parseInt(currentExercice.goal)
     }
     exercice[i] = exercice[i].concat(set)
    }
@@ -128,29 +129,23 @@ class WorkoutContainer extends React.Component {
   for (let k = 0; k < Object.keys(exercice).length; k++) {
     for (let h = 0; h < exercice[k].length; h++) {
       const isIncrease = R.all(R.propEq('increase', true), exercice[k])
-
+      count = h !== 0 && count + 2
       if (isIncrease) {
         exercice[k][h].weight = exercice[k][h].weight * 1.05
+        exercice[k][h].reps = count + parseInt(exercice[k][h].goal)
       }
     }
-    // exerciceRef.push({
-    //   completed: true,
-    //   cursorId: 123,
-    //   exercice: exercice[i]
-    // })
+    exerciceRef.push({
+      name: this.state.exercises[k].name,
+      goal: this.state.exercises[k].goal,
+      sets: this.state.exercises[k].sets,
+      weight: this.state.exercises[k].weight,
+      decrease: this.state.exercises[k].decrease,
+      completed: false,
+      cursorId: 123,
+      exercice: exercice[k]
+    })
   }
-
-  console.log(exercice)
-
-    // To mark the exercice as completed.
-    // exerciceRef.on('value', snapshot => {
-    //   const updates = {};
-
-    //   snapshot.forEach((childSnapshot) => {
-    //     updates[childSnapshot.key + '/completed'] = true
-    //     exerciceRef.update(updates)
-    //   })
-    // })
   }
 
   render() {
